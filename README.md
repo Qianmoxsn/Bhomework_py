@@ -278,25 +278,25 @@ STATION:
 clockwise: 0000000000
 counterclockwise: 0000000000
 BUS:
-position:29
+position:9
 target: 0000000001
 STATION:
 clockwise: 0000000000
 counterclockwise: 0000000000
 BUS:
-position:28
+position:8
 target: 0000000001
 STATION:
 clockwise: 0000000000
 counterclockwise: 0000000000
 BUS:
-position:27
+position:7
 target: 0000000001
 STATION:
 clockwise: 0000000000
 counterclockwise: 0000000000
 BUS:
-position:27
+position:7
 target: 0000000000
 STATION:
 clockwise: 0000000000
