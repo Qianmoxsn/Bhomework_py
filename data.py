@@ -3,6 +3,7 @@ class CONFIG:
         self.TOTAL_STATION = nsta
         self.STRATEGY = stg
         self.DISTANCE = dis
+        print('Config:\nTotal_station:', self.TOTAL_STATION, ' Strategy:', self.STRATEGY, ' Distance:', self.DISTANCE)
 
 
 class SED_LST:
@@ -23,3 +24,5 @@ class STA_CON:
     def __init__(self, cw_station, ccw_station):
         self.cw_station = cw_station
         self.ccw_station = ccw_station
+
+
