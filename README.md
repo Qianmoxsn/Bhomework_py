@@ -1,5 +1,7 @@
 # 课题:自动驾驶公交车调度系统
-项目看板：[跳转->项目看板](https://github.com/Qianmoxsn/Bhomework_py/projects/1)
+项目看板：[跳转->项目看板](https://github.com/Qianmoxsn/Bhomework_py/projects/1)  
+项目设计图：[跳转->项目设计图](img/flow%20chart4.15.svg)
+
 ## 目录
 - [课题:自动驾驶公交车调度系统](#课题自动驾驶公交车调度系统)
   - [目录](#目录)
