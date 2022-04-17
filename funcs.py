@@ -31,19 +31,33 @@ def IP_C():
         code = raw_code
     return codediction[code], instr
 
-
+#仅第一次
 def OP_C():
-    pass
+    position = 0
+    target = '0000000000'
+    clockwise = '0000000000'
+    counterclockwise = '0000000000'
+    print("BUS:")
+    print("position:%d" % position)
+    print("target: %s" % target)
+    print("STATION:")
+    print("clockwise: %s" % clockwise)
+    print("counterclockwise: %s" % counterclockwise)
+    return position, target, clockwise, counterclockwise
+
+#退出
+def OP_C_E(clockwise, counterclockwise):
+    print("end\nSTATION:")
+    print("clockwise: %s" % clockwise)
+    print("counterclockwise: %s" % counterclockwise)
+    return 0
+
+#读秒,tem值仅为0，1，2，便于计算位置
+def TIMR(position, target, clockwise, counterclockwise):
 
 
-def OP_C_E():
-    pass
 
 def INIT():
-    pass
-
-
-def TIMR():
     pass
 
 
