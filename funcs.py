@@ -1,4 +1,5 @@
 import data
+import gl_VAR
 
 
 def SET_CONFIG():
@@ -21,44 +22,44 @@ def SET_CONFIG():
     return nsta, stg, dis
 
 
+# 控制台输入
 def IP_C():
     instr = -1
     codediction = {'end': -1, 'clock': 0, 'counterclockwise': 1, 'clockwise': 2, 'target': 3}
-    raw_code = input()
+    raw_code = input('->in> ')
     if ' ' in raw_code:
         code, instr = raw_code.split(' ')
     else:
         code = raw_code
+
+    if code not in codediction:
+        print("!--invalid input--!")
+        return -2, instr
     return codediction[code], instr
 
-#仅第一次
-def OP_C():
-    position = 0
-    target = '0000000000'
-    clockwise = '0000000000'
-    counterclockwise = '0000000000'
+
+# 控制台输出
+def OP_C(bus_condition, sta_condition):
+    position = bus_condition.station * gl_VAR.g_dis + bus_condition.move
     print("BUS:")
     print("position:%d" % position)
-    print("target: %s" % target)
+    print("target: %s" % bus_condition.dest)
     print("STATION:")
-    print("clockwise: %s" % clockwise)
-    print("counterclockwise: %s" % counterclockwise)
-    return position, target, clockwise, counterclockwise
+    print("clockwise: %s" % sta_condition.cw_station)
+    print("counterclockwise: %s" % sta_condition.ccw_station)
 
-#退出
-def OP_C_E(clockwise, counterclockwise):
+
+# 结尾控制台输出
+def OP_C_E(sta_condition):
     print("end\nSTATION:")
-    print("clockwise: %s" % clockwise)
-    print("counterclockwise: %s" % counterclockwise)
+    print("clockwise: %s" % sta_condition.cw_station)
+    print("counterclockwise: %s" % sta_condition.ccw_station)
     return 0
 
-#读秒,tem值仅为0，1，2，便于计算位置
-def TIMR(position, target, clockwise, counterclockwise):
 
-
-
-def INIT():
-    pass
+# 记录总时间
+def TIMR():
+    gl_VAR.g_time += 1
 
 
 class BUS_ACT:
