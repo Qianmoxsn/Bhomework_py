@@ -66,11 +66,19 @@ def TIMR():
 
 # 判断行车方向
 def JUG_DIR(bus_condition=data.BUS_CON, sed_lst=data.SED_LST):
-    if gl_VAR.g_totsta * gl_VAR.g_dis / 2 - abs(
+    if sed_lst[0][1] * gl_VAR.g_dis>=(bus_condition.station * gl_VAR.g_dis + bus_condition.move)
+        if gl_VAR.g_totsta * gl_VAR.g_dis / 2 - abs(
             sed_lst[0][1] * gl_VAR.g_dis - (bus_condition.station * gl_VAR.g_dis + bus_condition.move)) >= 0:
-        return 1
+            return 1
+        else:
+            return -1
     else:
-        return -1
+
+        if gl_VAR.g_totsta * gl_VAR.g_dis / 2 - abs(
+                sed_lst[0][1] * gl_VAR.g_dis - (bus_condition.station * gl_VAR.g_dis + bus_condition.move)) >= 0:
+            return -1
+        else:
+            return 1
 
 
 # 添加计划
