@@ -64,18 +64,27 @@ def TIMR():
     gl_VAR.g_time += 1
 
 
+# 计算距离差
+def DIS_DIFF(a, b, totsta=gl_VAR.g_totsta, g_dis=gl_VAR.g_dis):
+    if totsta * g_dis - (a - b) < totsta * g_dis / 2:
+        dis = abs(abs(a - b) - totsta * g_dis)
+    else:
+        dis = abs(a - b)
+    return dis
+
+
 # 判断行车方向
-def JUG_DIR(bus_condition=data.BUS_CON, sed_lst=data.SED_LST):
-    if sed_lst[0][1] * gl_VAR.g_dis >= (bus_condition.station * gl_VAR.g_dis + bus_condition.move):
+def JUG_DIR(bus_condition=data.BUS_CON, sed_lst=data.SED_LST, index=0):
+    if sed_lst[index][1] * gl_VAR.g_dis >= (bus_condition.station * gl_VAR.g_dis + bus_condition.move):
         if gl_VAR.g_totsta * gl_VAR.g_dis / 2 - abs(
-                sed_lst[0][1] * gl_VAR.g_dis - (bus_condition.station * gl_VAR.g_dis + bus_condition.move)) >= 0:
+                sed_lst[index][1] * gl_VAR.g_dis - (bus_condition.station * gl_VAR.g_dis + bus_condition.move)) >= 0:
             return 1
         else:
             return -1
     else:
 
         if gl_VAR.g_totsta * gl_VAR.g_dis / 2 - abs(
-                sed_lst[0][1] * gl_VAR.g_dis - (bus_condition.station * gl_VAR.g_dis + bus_condition.move)) >= 0:
+                sed_lst[index][1] * gl_VAR.g_dis - (bus_condition.station * gl_VAR.g_dis + bus_condition.move)) >= 0:
             return -1
         else:
             return 1
@@ -100,13 +109,24 @@ def ADD_SED(code, instr):
             while data.SED_LST[i][0] > 10:
                 i += 1
             base_cmd = data.SED_LST[i]
+            basei = i
             # 输入指令是“顺便”指令：
-            if data.BUS_CON.station < instr < base_cmd[1]:
+            if DIS_DIFF(data.BUS_CON.station, instr) < DIS_DIFF(data.BUS_CON.station, base_cmd[1]) and \
+                    DIS_DIFF(instr, base_cmd[1]) < DIS_DIFF(data.BUS_CON.station, base_cmd[1]):
                 code += 10
+                # 判断当前方向
+                dirc = JUG_DIR(index=basei)
                 inspos = 0
-                while instr < data.SED_LST[inspos][1]:
-                    inspos += 1
-                data.SED_LST.insert(inspos - 1, (code, instr))
+                if dirc == -1:
+                    while -gl_VAR.g_totsta < 2 * (inspos - data.SED_LST[inspos + 1][1]) < 0 or gl_VAR.g_totsta < 2 * (
+                            inspos - data.SED_LST[inspos + 1][1]) < 2 * gl_VAR.g_totsta:
+                        inspos += 1
+                else:
+                    while -2 * gl_VAR.g_totsta < 2 * (
+                            inspos - data.SED_LST[inspos + 1][1]) < -gl_VAR.g_totsta or 0 < 2 * (
+                            inspos - data.SED_LST[inspos + 1][1]) < gl_VAR.g_totsta:
+                        inspos += 1
+                data.SED_LST.insert(inspos, (code, instr))
             # 输入指令不是“顺便”指令：插尾
             else:
                 data.SED_LST.append((code, instr))
@@ -142,13 +162,21 @@ def REMOVE_SED(index=0):
 
 # SSTF策略，根指令，删除该站全部计划后需要重新排序SED_LST
 def REMOVE_SED_SSTF(del_sta):
-    data.SED_LST.remove((1, del_sta))
-    data.SED_LST.remove((2, del_sta))
-    data.SED_LST.remove((3, del_sta))
+    if (1, del_sta) in data.SED_LST:
+        data.SED_LST.remove((1, del_sta))
+    elif (2, del_sta) in data.SED_LST:
+        data.SED_LST.remove((2, del_sta))
+    elif (3, del_sta) in data.SED_LST:
+        data.SED_LST.remove((3, del_sta))
     tmp_lst = []
     for i in range(len(data.SED_LST)):
-        dric = 233
-        dis = data.SED_LST[i][1] - data.BUS_CON.station
+        totaldis = gl_VAR.g_totsta * gl_VAR.g_dis
+        if 0 <= data.SED_LST[i][1] - data.BUS_CON.station <= totaldis / 2 \
+                or -totaldis <= data.SED_LST[i][1] - data.BUS_CON.station <= -totaldis / 2:
+            dric = 1
+        else:
+            dric = -1
+        dis = DIS_DIFF(data.SED_LST[i][1], data.BUS_CON.station)
         tmp_lst[i] = (i, dric, dis)
 
     tmp_lst.sort(key=lambda x: (x[2], -x[1]))
