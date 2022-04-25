@@ -81,13 +81,42 @@ def JUG_DIR(bus_condition=data.BUS_CON, sed_lst=data.SED_LST):
             return 1
 
 
-# 添加计划
-def ADD_SED(sgm, sta_num, index):
-    if index == -1:
-        data.SED_LST.append((sgm, sta_num))
+# 将计划写入计划表
+def ADD_SED(code, instr):
+    lst0_cmd = data.SED_LST[0]  # 计划表第一条命令
+    # 计划表为空，插头
+    if not data.SED_LST:
+        data.SED_LST.insert(0, (code, instr))
+    elif code == lst0_cmd[0] and lst0_cmd[1][instr] == '1':
+        return 'ST_BY'
     else:
-        data.SED_LST.insert(index, (sgm, sta_num))
-    # 将计划表内的计划写入状态数据类
+        # ‘FCFS’策略：插尾
+        if gl_VAR.g_stg == 'FCFS':
+            data.SED_LST.append((code, instr))
+
+        # ‘SSTF’策略：
+        elif gl_VAR.g_stg == 'SSTF':
+            # 找出根指令
+            i = 0
+            while data.SED_LST[i][0] > 10:
+                i += 1
+            base_cmd = data.SED_LST[i]
+            # 输入指令是“顺便”指令：
+            if data.BUS_CON.station < instr < base_cmd[1]:
+                code += 10
+                inspos = 0
+                while instr < data.SED_LST[inspos][1]:
+                    inspos += 1
+                data.SED_LST.insert(inspos, (code, instr))
+            # 输入指令不是“顺便”指令：插尾
+            else:
+                data.SED_LST.append((code, instr))
+        elif gl_VAR.g_stg == 'SCAN':
+            pass
+
+
+# 将计划表内的计划写入状态数据类
+def ADD_CON():
     for i in range(len(data.SED_LST)):
         # 写入STA_CON.ccw_station
         if data.SED_LST[i][0] == 1:
@@ -107,25 +136,8 @@ def ADD_SED(sgm, sta_num, index):
 
 
 # 删除已完成计划（默认清除首条命令）
-def REMOVE_SED(index=-0):
+def REMOVE_SED(index=0):
     data.SED_LST.pop(index)
-
-
-# 策略分析
-def STG(code, instr):
-    # 计划表为空，插头
-    if not data.SED_LST:
-        return 0
-    elif code == data.SED_LST[0][0] and data.SED_LST[0][1][instr] == '1':
-        return 'ST_BY'
-    else:
-        # ‘FCFS’策略：插尾
-        if gl_VAR.g_stg == 'FCFS':
-            return -1
-        elif gl_VAR.g_stg == 'SSTF':
-            pass
-        elif gl_VAR.g_stg == 'SCAN':
-            pass
 
 
 # 公交车行车
