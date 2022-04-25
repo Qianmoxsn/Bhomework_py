@@ -21,12 +21,12 @@ if __name__ == '__main__':
             funcs.OP_C_E()
             exit(-1)
         elif code == 1 or code == 2 or code == 3:
-            # 执行STG函数
-            intrpos = funcs.STG(code, instr)
-            if intrpos == 'ST_BY':
-                pass
             # 执行ADD_SED函数
-            funcs.ADD_SED(code, instr, intrpos)
+            state = funcs.ADD_SED(code, instr)
+            if state == 'ST_BY':
+                pass
+            # 执行ADD_CON函数
+            funcs.ADD_CON()
             # print("<-sedlst->\n", data.SED_LST)
         elif code == 0:
             # 执行BUS_MOV函数

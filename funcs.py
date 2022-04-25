@@ -64,68 +64,136 @@ def TIMR():
     gl_VAR.g_time += 1
 
 
+# 计算距离差
+def DIS_DIFF(a, b, totsta=gl_VAR.g_totsta, g_dis=gl_VAR.g_dis):
+    if totsta * g_dis - (a - b) < totsta * g_dis / 2:
+        dis = abs(abs(a - b) - totsta * g_dis)
+    else:
+        dis = abs(a - b)
+    return dis
+
+
 # 判断行车方向
-def JUG_DIR(bus_condition=data.BUS_CON, sed_lst=data.SED_LST):
-    if sed_lst[0][1] * gl_VAR.g_dis >= (bus_condition.station * gl_VAR.g_dis + bus_condition.move):
+def JUG_DIR(bus_condition=data.BUS_CON, sed_lst=data.SED_LST, index=0):
+    if sed_lst[index][1] * gl_VAR.g_dis >= (bus_condition.station * gl_VAR.g_dis + bus_condition.move):
         if gl_VAR.g_totsta * gl_VAR.g_dis / 2 - abs(
-                sed_lst[0][1] * gl_VAR.g_dis - (bus_condition.station * gl_VAR.g_dis + bus_condition.move)) >= 0:
+                sed_lst[index][1] * gl_VAR.g_dis - (bus_condition.station * gl_VAR.g_dis + bus_condition.move)) >= 0:
             return 1
         else:
             return -1
     else:
 
         if gl_VAR.g_totsta * gl_VAR.g_dis / 2 - abs(
-                sed_lst[0][1] * gl_VAR.g_dis - (bus_condition.station * gl_VAR.g_dis + bus_condition.move)) >= 0:
+                sed_lst[index][1] * gl_VAR.g_dis - (bus_condition.station * gl_VAR.g_dis + bus_condition.move)) >= 0:
             return -1
         else:
             return 1
 
 
-# 添加计划
-def ADD_SED(sgm, sta_num, index):
-    if index == -1:
-        data.SED_LST.append((sgm, sta_num))
+# 将计划写入计划表
+def ADD_SED(code, instr):
+    # 计划表为空，插头
+    if not data.SED_LST:
+        data.SED_LST.insert(0, (code, instr))
+    elif code == data.SED_LST[0][0] and instr == data.SED_LST[0][1]:
+        return 'ST_BY'
     else:
-        data.SED_LST.insert(index, (sgm, sta_num))
-    # 将计划表内的计划写入状态数据类
+        # ‘FCFS’策略：插尾
+        if gl_VAR.g_stg == 'FCFS':
+            data.SED_LST.append((code, instr))
+
+        # ‘SSTF’策略：
+        elif gl_VAR.g_stg == 'SSTF':
+            # 找出根指令
+            i = 0
+            while data.SED_LST[i][0] > 10:
+                i += 1
+            base_cmd = data.SED_LST[i]
+            basei = i
+            # 输入指令是“顺便”指令：
+            if DIS_DIFF(data.BUS_CON.station, instr) < DIS_DIFF(data.BUS_CON.station, base_cmd[1]) and \
+                    DIS_DIFF(instr, base_cmd[1]) < DIS_DIFF(data.BUS_CON.station, base_cmd[1]):
+                code += 10
+                # 判断当前方向
+                dirc = JUG_DIR(index=basei)
+                inspos = 0
+                if inspos >= basei:
+                    pass
+                else:
+                    if dirc == -1:
+
+                        while (-gl_VAR.g_totsta < 2 * (inspos - data.SED_LST[inspos + 1][1]) < 0 or gl_VAR.g_totsta < 2 * (
+                                inspos - data.SED_LST[inspos + 1][1]) < 2 * gl_VAR.g_totsta) and inspos < basei:
+
+                            inspos += 1
+                    else:
+                        while (-2 * gl_VAR.g_totsta < 2 * (
+                                inspos - data.SED_LST[inspos + 1][1]) < -gl_VAR.g_totsta or 0 < 2 * (
+                                inspos - data.SED_LST[inspos + 1][1]) < gl_VAR.g_totsta) and inspos < basei:
+
+                            inspos += 1
+                data.SED_LST.insert(inspos, (code, instr))
+            # 输入指令不是“顺便”指令：插尾
+            else:
+                data.SED_LST.append((code, instr))
+        elif gl_VAR.g_stg == 'SCAN':
+            pass
+
+
+# 将计划表内的计划写入状态数据类
+def ADD_CON():
     for i in range(len(data.SED_LST)):
         # 写入STA_CON.ccw_station
-        if data.SED_LST[i][0] == 1:
+        if data.SED_LST[i][0] % 10 == 1:
             temp_list = list(data.STA_CON.ccw_station)
             temp_list[data.SED_LST[i][1] - 1] = '1'
             data.STA_CON.ccw_station = ''.join(temp_list)
         # 写入STA_CON.cw_station
-        elif data.SED_LST[i][0] == 2:
+        elif data.SED_LST[i][0] % 10 == 2:
             temp_list = list(data.STA_CON.cw_station)
             temp_list[data.SED_LST[i][1] - 1] = '1'
             data.STA_CON.cw_station = ''.join(temp_list)
         # 写入BUS_CON.dest
-        elif data.SED_LST[i][0] == 3:
+        elif data.SED_LST[i][0] % 10 == 3:
             temp_list = list(data.BUS_CON.dest)
             temp_list[data.SED_LST[i][1] - 1] = '1'
             data.BUS_CON.dest = ''.join(temp_list)
 
 
 # 删除已完成计划（默认清除首条命令）
-def REMOVE_SED(index=-0):
+def REMOVE_SED(index=0):
+    # default
     data.SED_LST.pop(index)
 
 
-# 策略分析
-def STG(code, instr):
-    # 计划表为空，插头
-    if not data.SED_LST:
-        return 0
-    elif code == data.SED_LST[0][0] and data.SED_LST[0][1][instr] == '1':
-        return 'ST_BY'
+# SSTF策略，根指令，删除该站全部计划后需要重新排序SED_LST
+def REMOVE_SED_SSTF(del_sta):
+    if (1, del_sta) in data.SED_LST:
+        data.SED_LST.remove((1, del_sta))
+    if (2, del_sta) in data.SED_LST:
+        data.SED_LST.remove((2, del_sta))
+    if (3, del_sta) in data.SED_LST:
+        data.SED_LST.remove((3, del_sta))
+    tmp_lst = []
+    for i in range(len(data.SED_LST)):
+        totaldis = gl_VAR.g_totsta * gl_VAR.g_dis
+        if 0 <= data.SED_LST[i][1] - data.BUS_CON.station <= totaldis / 2 \
+                or -totaldis <= data.SED_LST[i][1] - data.BUS_CON.station <= -totaldis / 2:
+            dric = 1
+        else:
+            dric = -1
+        dis = DIS_DIFF(data.SED_LST[i][1], data.BUS_CON.station)
+        tmp_lst.append((i, dric, dis))
+
+    tmp_lst.sort(key=lambda x: (x[2], -x[1]))
+    # 找出最短时间指令索引
+    if not tmp_lst:
+        return
     else:
-        # ‘FCFS’策略：插尾
-        if gl_VAR.g_stg == 'FCFS':
-            return -1
-        elif gl_VAR.g_stg == 'SSTF':
-            pass
-        elif gl_VAR.g_stg == 'SCAN':
-            pass
+        short_index = tmp_lst[0][0]
+        # 将最短时间指令插入计划表首位
+        data.SED_LST.insert(0, data.SED_LST[short_index])
+        data.SED_LST.pop(short_index + 1)
 
 
 # 公交车行车
@@ -161,11 +229,16 @@ def BUS_MOV():
         while True:
             # 是否到站
             if data.BUS_CON.station == data.SED_LST[0][1] - 1 and data.BUS_CON.move == 0:
-                # 到站，执行上、下车指令
-                if data.SED_LST[0][0] == 1 or data.SED_LST[0][0] == 2:
-                    PSG_U(data.SED_LST[0][0], data.BUS_CON.station)
-                elif data.SED_LST[0][0] == 3:
-                    PSG_D(data.BUS_CON.station)
+                # 如策略为SSTF，根指令
+                if gl_VAR.g_stg == 'SSTF' and data.SED_LST[0][0] < 10:
+                    DEL_CON_SSTF(data.SED_LST[0][1])
+                else:
+                    # 到站，执行上、下车指令
+                    if data.SED_LST[0][0] % 10 == 1 or data.SED_LST[0][0] % 10 == 2:
+                        PSG_U(data.SED_LST[0][0], data.BUS_CON.station)
+                    elif data.SED_LST[0][0] % 10 == 3:
+                        PSG_D(data.BUS_CON.station)
+
                 # 如命令表已空，返回'ST_BY'状态
                 if not data.SED_LST:
                     return 'ST_BY'
@@ -178,17 +251,34 @@ def BUS_MOV():
                 break
 
 
+# SSTF策略，根指令，同时清除三种状态
+def DEL_CON_SSTF(num):
+    REMOVE_SED_SSTF(num)
+    # 清除ccw站台状态
+    templststr = list(data.STA_CON.ccw_station)
+    templststr[num-1] = '0'
+    data.STA_CON.ccw_station = ''.join(templststr)
+    # 清除cw站台状态
+    templststr = list(data.STA_CON.cw_station)
+    templststr[num-1] = '0'
+    data.STA_CON.cw_station = ''.join(templststr)
+    # 清除车辆target状态
+    templststr = list(data.BUS_CON.dest)
+    templststr[num-1] = '0'
+    data.BUS_CON.dest = ''.join(templststr)
+
+
 # 乘客上车（包括cw、ccw指令）-num为车辆所在车站号
 def PSG_U(code, num):
     # 清除计划（已完成）
     REMOVE_SED()
     # 清除ccw站台状态
-    if code == 1:
+    if code % 10 == 1:
         templststr = list(data.STA_CON.ccw_station)
         templststr[num] = '0'
         data.STA_CON.ccw_station = ''.join(templststr)
     # 清除cw站台状态
-    elif code == 2:
+    elif code % 10 == 2:
         templststr = list(data.STA_CON.cw_station)
         templststr[num] = '0'
         data.STA_CON.cw_station = ''.join(templststr)
