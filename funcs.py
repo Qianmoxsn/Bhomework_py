@@ -95,7 +95,7 @@ def ADD_SED(code, instr):
     # 计划表为空，插头
     if not data.SED_LST:
         data.SED_LST.insert(0, (code, instr))
-    elif code == data.SED_LST[0][0] and data.SED_LST[0][1][instr] == '1':
+    elif code == data.SED_LST[0][0] and instr == data.SED_LST[0][1]:
         return 'ST_BY'
     else:
         # ‘FCFS’策略：插尾
@@ -117,15 +117,21 @@ def ADD_SED(code, instr):
                 # 判断当前方向
                 dirc = JUG_DIR(index=basei)
                 inspos = 0
-                if dirc == -1:
-                    while -gl_VAR.g_totsta < 2 * (inspos - data.SED_LST[inspos + 1][1]) < 0 or gl_VAR.g_totsta < 2 * (
-                            inspos - data.SED_LST[inspos + 1][1]) < 2 * gl_VAR.g_totsta:
-                        inspos += 1
+                if inspos >= basei:
+                    pass
                 else:
-                    while -2 * gl_VAR.g_totsta < 2 * (
-                            inspos - data.SED_LST[inspos + 1][1]) < -gl_VAR.g_totsta or 0 < 2 * (
-                            inspos - data.SED_LST[inspos + 1][1]) < gl_VAR.g_totsta:
-                        inspos += 1
+                    if dirc == -1:
+
+                        while (-gl_VAR.g_totsta < 2 * (inspos - data.SED_LST[inspos + 1][1]) < 0 or gl_VAR.g_totsta < 2 * (
+                                inspos - data.SED_LST[inspos + 1][1]) < 2 * gl_VAR.g_totsta) and inspos < basei:
+
+                            inspos += 1
+                    else:
+                        while (-2 * gl_VAR.g_totsta < 2 * (
+                                inspos - data.SED_LST[inspos + 1][1]) < -gl_VAR.g_totsta or 0 < 2 * (
+                                inspos - data.SED_LST[inspos + 1][1]) < gl_VAR.g_totsta) and inspos < basei:
+
+                            inspos += 1
                 data.SED_LST.insert(inspos, (code, instr))
             # 输入指令不是“顺便”指令：插尾
             else:
@@ -164,9 +170,9 @@ def REMOVE_SED(index=0):
 def REMOVE_SED_SSTF(del_sta):
     if (1, del_sta) in data.SED_LST:
         data.SED_LST.remove((1, del_sta))
-    elif (2, del_sta) in data.SED_LST:
+    if (2, del_sta) in data.SED_LST:
         data.SED_LST.remove((2, del_sta))
-    elif (3, del_sta) in data.SED_LST:
+    if (3, del_sta) in data.SED_LST:
         data.SED_LST.remove((3, del_sta))
     tmp_lst = []
     for i in range(len(data.SED_LST)):
@@ -177,14 +183,17 @@ def REMOVE_SED_SSTF(del_sta):
         else:
             dric = -1
         dis = DIS_DIFF(data.SED_LST[i][1], data.BUS_CON.station)
-        tmp_lst[i] = (i, dric, dis)
+        tmp_lst.append((i, dric, dis))
 
     tmp_lst.sort(key=lambda x: (x[2], -x[1]))
     # 找出最短时间指令索引
-    short_index = tmp_lst[0][0]
-    # 将最短时间指令插入计划表首位
-    data.SED_LST.insert(0, data.SED_LST[short_index])
-    data.SED_LST.pop(short_index + 1)
+    if not tmp_lst:
+        return
+    else:
+        short_index = tmp_lst[0][0]
+        # 将最短时间指令插入计划表首位
+        data.SED_LST.insert(0, data.SED_LST[short_index])
+        data.SED_LST.pop(short_index + 1)
 
 
 # 公交车行车
@@ -247,15 +256,15 @@ def DEL_CON_SSTF(num):
     REMOVE_SED_SSTF(num)
     # 清除ccw站台状态
     templststr = list(data.STA_CON.ccw_station)
-    templststr[num] = '0'
+    templststr[num-1] = '0'
     data.STA_CON.ccw_station = ''.join(templststr)
     # 清除cw站台状态
     templststr = list(data.STA_CON.cw_station)
-    templststr[num] = '0'
+    templststr[num-1] = '0'
     data.STA_CON.cw_station = ''.join(templststr)
     # 清除车辆target状态
     templststr = list(data.BUS_CON.dest)
-    templststr[num] = '0'
+    templststr[num-1] = '0'
     data.BUS_CON.dest = ''.join(templststr)
 
 
