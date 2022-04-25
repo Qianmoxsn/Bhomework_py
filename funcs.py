@@ -83,11 +83,10 @@ def JUG_DIR(bus_condition=data.BUS_CON, sed_lst=data.SED_LST):
 
 # 将计划写入计划表
 def ADD_SED(code, instr):
-    lst0_cmd = data.SED_LST[0]  # 计划表第一条命令
     # 计划表为空，插头
     if not data.SED_LST:
         data.SED_LST.insert(0, (code, instr))
-    elif code == lst0_cmd[0] and lst0_cmd[1][instr] == '1':
+    elif code == data.SED_LST[0][0] and data.SED_LST[0][1][instr] == '1':
         return 'ST_BY'
     else:
         # ‘FCFS’策略：插尾
@@ -107,7 +106,7 @@ def ADD_SED(code, instr):
                 inspos = 0
                 while instr < data.SED_LST[inspos][1]:
                     inspos += 1
-                data.SED_LST.insert(inspos, (code, instr))
+                data.SED_LST.insert(inspos - 1, (code, instr))
             # 输入指令不是“顺便”指令：插尾
             else:
                 data.SED_LST.append((code, instr))
@@ -137,26 +136,27 @@ def ADD_CON():
 
 # 删除已完成计划（默认清除首条命令）
 def REMOVE_SED(index=0):
-    # 如果策略为SSTF，删除该站全部站台指令后需要重新排序SED_LST
-    if gl_VAR.g_stg == 'SSTF' and data.SED_LST[0][0] < 10:
-        del_sta = data.SED_LST[0][1]
-        data.SED_LST.remove((1, del_sta))
-        data.SED_LST.remove((2, del_sta))
-        tmp_lst = []
-        for i in range(len(data.SED_LST)):
-            dric =
-            dis = data.SED_LST[i][1] - data.BUS_CON.station
-            tmp_lst[i] = (i, dric, dis)
-
-        tmp_lst.sort(key=lambda x: (-x[2], x[1]))
-        # 找出最短时间指令索引
-        short_index = tmp_lst[0][0]
-        # 将最短时间指令插入计划表首位
-        data.SED_LST.insert(0, data.SED_LST[short_index])
-        data.SED_LST.pop(short_index + 1)
-
     # default
     data.SED_LST.pop(index)
+
+
+# SSTF策略，根指令，删除该站全部计划后需要重新排序SED_LST
+def REMOVE_SED_SSTF(del_sta):
+    data.SED_LST.remove((1, del_sta))
+    data.SED_LST.remove((2, del_sta))
+    data.SED_LST.remove((3, del_sta))
+    tmp_lst = []
+    for i in range(len(data.SED_LST)):
+        dric = 233
+        dis = data.SED_LST[i][1] - data.BUS_CON.station
+        tmp_lst[i] = (i, dric, dis)
+
+    tmp_lst.sort(key=lambda x: (x[2], -x[1]))
+    # 找出最短时间指令索引
+    short_index = tmp_lst[0][0]
+    # 将最短时间指令插入计划表首位
+    data.SED_LST.insert(0, data.SED_LST[short_index])
+    data.SED_LST.pop(short_index + 1)
 
 
 # 公交车行车
@@ -192,11 +192,16 @@ def BUS_MOV():
         while True:
             # 是否到站
             if data.BUS_CON.station == data.SED_LST[0][1] - 1 and data.BUS_CON.move == 0:
-                # 到站，执行上、下车指令
-                if data.SED_LST[0][0] % 10 == 1 or data.SED_LST[0][0] % 10 == 2:
-                    PSG_U(data.SED_LST[0][0], data.BUS_CON.station)
-                elif data.SED_LST[0][0] % 10 == 3:
-                    PSG_D(data.BUS_CON.station)
+                # 如策略为SSTF，根指令
+                if gl_VAR.g_stg == 'SSTF' and data.SED_LST[0][0] < 10:
+                    DEL_CON_SSTF(data.SED_LST[0][1])
+                else:
+                    # 到站，执行上、下车指令
+                    if data.SED_LST[0][0] % 10 == 1 or data.SED_LST[0][0] % 10 == 2:
+                        PSG_U(data.SED_LST[0][0], data.BUS_CON.station)
+                    elif data.SED_LST[0][0] % 10 == 3:
+                        PSG_D(data.BUS_CON.station)
+
                 # 如命令表已空，返回'ST_BY'状态
                 if not data.SED_LST:
                     return 'ST_BY'
@@ -209,22 +214,27 @@ def BUS_MOV():
                 break
 
 
+# SSTF策略，根指令，同时清除三种状态
+def DEL_CON_SSTF(num):
+    REMOVE_SED_SSTF(num)
+    # 清除ccw站台状态
+    templststr = list(data.STA_CON.ccw_station)
+    templststr[num] = '0'
+    data.STA_CON.ccw_station = ''.join(templststr)
+    # 清除cw站台状态
+    templststr = list(data.STA_CON.cw_station)
+    templststr[num] = '0'
+    data.STA_CON.cw_station = ''.join(templststr)
+    # 清除车辆target状态
+    templststr = list(data.BUS_CON.dest)
+    templststr[num] = '0'
+    data.BUS_CON.dest = ''.join(templststr)
+
+
 # 乘客上车（包括cw、ccw指令）-num为车辆所在车站号
 def PSG_U(code, num):
     # 清除计划（已完成）
     REMOVE_SED()
-    # 如策略为SSTF，根指令完成时同时清除两方向站台请求
-    if gl_VAR.g_stg == 'SSTF' and code < 10:
-        # 清除ccw站台状态
-        templststr = list(data.STA_CON.ccw_station)
-        templststr[num] = '0'
-        data.STA_CON.ccw_station = ''.join(templststr)
-        # 清除cw站台状态
-        templststr = list(data.STA_CON.cw_station)
-        templststr[num] = '0'
-        data.STA_CON.cw_station = ''.join(templststr)
-
-    # default
     # 清除ccw站台状态
     if code % 10 == 1:
         templststr = list(data.STA_CON.ccw_station)
