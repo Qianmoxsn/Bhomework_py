@@ -72,8 +72,10 @@ def DIS_DIFF(a, b):
     return min(dis1, dis2)  # 站差
 
 
+
 # 判断行车方向
 def JUG_DIR(bus_condition=data.BUS_CON, sed_lst=data.SED_LST, index=0):
+
     dis_diff = DIS_DIFF(sed_lst[index][1], bus_condition.station + 1)
     if (sed_lst[index][1] - bus_condition.station - 1) == dis_diff:
         return 1
@@ -81,6 +83,7 @@ def JUG_DIR(bus_condition=data.BUS_CON, sed_lst=data.SED_LST, index=0):
         return 1
     else:
         return -1
+
 
 
 # 将计划写入计划表
@@ -179,6 +182,7 @@ def REMOVE_SED_SSTF(del_sta):
         else:
             dric = -1
         dis = DIS_DIFF(data.SED_LST[i][1], data.BUS_CON.station+1)
+
         tmp_lst.append((i, dric, dis))
 
     tmp_lst.sort(key=lambda x: (x[2], -x[1]))
@@ -231,13 +235,10 @@ def BUS_MOV():
                 # 如策略为SSTF，根指令
                 if gl_VAR.g_stg == 'SSTF' and data.SED_LST[0][0] < 10:
                     DEL_CON_SSTF(data.SED_LST[0][1])
-                # elif gl_VAR.g_stg == 'SSTF' and data.SED_LST[0][0] > 10:
-
                 else:
                     # 到站，执行上、下车指令
                     if data.SED_LST[0][0] % 10 == 1 or data.SED_LST[0][0] % 10 == 2:
                         PSG_U(data.SED_LST[0][0], data.BUS_CON.station)
-
                     elif data.SED_LST[0][0] % 10 == 3:
                         PSG_D(data.BUS_CON.station)
 
@@ -267,6 +268,7 @@ def DEL_CON_SSTF(num):
     # 清除车辆target状态
     templststr = list(data.BUS_CON.dest)
     templststr[num - 1] = '0'
+
     data.BUS_CON.dest = ''.join(templststr)
 
 
