@@ -47,10 +47,10 @@ def OP_C(bus_condition, sta_condition):
     print("---TIME: %d---" % gl_VAR.g_time)
     print("BUS:")
     print("position:%d" % position)
-    print("target: %s" % bus_condition.dest)
+    print("target:%s" % bus_condition.dest)
     print("STATION:")
-    print("clockwise: %s" % sta_condition.cw_station)
-    print("counterclockwise: %s" % sta_condition.ccw_station)
+    print("clockwise:%s" % sta_condition.cw_station)
+    print("counterclockwise:%s" % sta_condition.ccw_station)
 
 
 # 结尾控制台输出
@@ -65,29 +65,25 @@ def TIMR():
 
 
 # 计算距离差
-def DIS_DIFF(a, b, totsta=gl_VAR.g_totsta, g_dis=gl_VAR.g_dis):
-    if totsta * g_dis - (a - b) < totsta * g_dis / 2:
-        dis = abs(abs(a - b) - totsta * g_dis)
-    else:
-        dis = abs(a - b)
-    return dis
+def DIS_DIFF(a, b):
+    totsta = gl_VAR.g_totsta
+    dis1 = max(a, b) - min(a, b)
+    dis2 = totsta - max(a, b) + min(a, b)
+    return min(dis1, dis2)  # 站差
+
 
 
 # 判断行车方向
 def JUG_DIR(bus_condition=data.BUS_CON, sed_lst=data.SED_LST, index=0):
-    if sed_lst[index][1] * gl_VAR.g_dis >= (bus_condition.station * gl_VAR.g_dis + bus_condition.move):
-        if gl_VAR.g_totsta * gl_VAR.g_dis / 2 - abs(
-                sed_lst[index][1] * gl_VAR.g_dis - (bus_condition.station * gl_VAR.g_dis + bus_condition.move)) >= 0:
-            return 1
-        else:
-            return -1
-    else:
 
-        if gl_VAR.g_totsta * gl_VAR.g_dis / 2 - abs(
-                sed_lst[index][1] * gl_VAR.g_dis - (bus_condition.station * gl_VAR.g_dis + bus_condition.move)) >= 0:
-            return -1
-        else:
-            return 1
+    dis_diff = DIS_DIFF(sed_lst[index][1], bus_condition.station + 1)
+    if (sed_lst[index][1] - bus_condition.station - 1) == dis_diff:
+        return 1
+    elif (sed_lst[index][1] - bus_condition.station - 1) == dis_diff - gl_VAR.g_totsta:
+        return 1
+    else:
+        return -1
+
 
 
 # 将计划写入计划表
@@ -111,28 +107,31 @@ def ADD_SED(code, instr):
             base_cmd = data.SED_LST[i]
             basei = i
             # 输入指令是“顺便”指令：
-            if DIS_DIFF(data.BUS_CON.station, instr) < DIS_DIFF(data.BUS_CON.station, base_cmd[1]) and \
-                    DIS_DIFF(instr, base_cmd[1]) < DIS_DIFF(data.BUS_CON.station, base_cmd[1]):
-                code += 10
-                # 判断当前方向
-                dirc = JUG_DIR(index=basei)
-                inspos = 0
-                if inspos >= basei:
-                    pass
-                else:
-                    if dirc == -1:
-
-                        while (-gl_VAR.g_totsta < 2 * (inspos - data.SED_LST[inspos + 1][1]) < 0 or gl_VAR.g_totsta < 2 * (
-                                inspos - data.SED_LST[inspos + 1][1]) < 2 * gl_VAR.g_totsta) and inspos < basei:
-
-                            inspos += 1
+            if DIS_DIFF(data.BUS_CON.station+1, instr) < DIS_DIFF(data.BUS_CON.station+1, base_cmd[1]) and \
+                    DIS_DIFF(instr, base_cmd[1]) < DIS_DIFF(data.BUS_CON.station+1, base_cmd[1]):
+                if (data.BUS_CON.dric == 1 and code == 2) or (data.BUS_CON.dric == -1 and code == 1):
+                    code += 10
+                    # 判断当前方向
+                    dirc = JUG_DIR(index=basei)
+                    inspos = 0
+                    if inspos >= basei:
+                        pass
                     else:
-                        while (-2 * gl_VAR.g_totsta < 2 * (
-                                inspos - data.SED_LST[inspos + 1][1]) < -gl_VAR.g_totsta or 0 < 2 * (
-                                inspos - data.SED_LST[inspos + 1][1]) < gl_VAR.g_totsta) and inspos < basei:
+                        if dirc == -1:
 
-                            inspos += 1
-                data.SED_LST.insert(inspos, (code, instr))
+                            while (-gl_VAR.g_totsta < 2 * (
+                                    inspos - data.SED_LST[inspos + 1][1]) < 0 or gl_VAR.g_totsta < 2 * (
+                                           inspos - data.SED_LST[inspos + 1][
+                                       1]) < 2 * gl_VAR.g_totsta) and inspos < basei:
+                                inspos += 1
+                        else:
+                            while (-2 * gl_VAR.g_totsta < 2 * (
+                                    inspos - data.SED_LST[inspos + 1][1]) < -gl_VAR.g_totsta or 0 < 2 * (
+                                           inspos - data.SED_LST[inspos + 1][1]) < gl_VAR.g_totsta) and inspos < basei:
+                                inspos += 1
+                    data.SED_LST.insert(inspos, (code, instr))
+                else:
+                    data.SED_LST.append((code, instr))
             # 输入指令不是“顺便”指令：插尾
             else:
                 data.SED_LST.append((code, instr))
@@ -177,12 +176,13 @@ def REMOVE_SED_SSTF(del_sta):
     tmp_lst = []
     for i in range(len(data.SED_LST)):
         totaldis = gl_VAR.g_totsta * gl_VAR.g_dis
-        if 0 <= data.SED_LST[i][1] - data.BUS_CON.station <= totaldis / 2 \
-                or -totaldis <= data.SED_LST[i][1] - data.BUS_CON.station <= -totaldis / 2:
+        if 0 <= (data.SED_LST[i][1] - (data.BUS_CON.station+1))*gl_VAR.g_dis <= totaldis / 2 \
+                or -totaldis <= (data.SED_LST[i][1] - (data.BUS_CON.station+1))*gl_VAR.g_dis <= -totaldis / 2:
             dric = 1
         else:
             dric = -1
-        dis = DIS_DIFF(data.SED_LST[i][1], data.BUS_CON.station)
+        dis = DIS_DIFF(data.SED_LST[i][1], data.BUS_CON.station+1)
+
         tmp_lst.append((i, dric, dis))
 
     tmp_lst.sort(key=lambda x: (x[2], -x[1]))
@@ -210,6 +210,9 @@ def BUS_DRIVE():
     # station负值修正
     if data.BUS_CON.station < 0:
         data.BUS_CON.station += gl_VAR.g_totsta
+    # station超出范围修正
+    if data.BUS_CON.station >= gl_VAR.g_totsta:
+        data.BUS_CON.station -= gl_VAR.g_totsta
 
 
 def BUS_MOV():
@@ -256,15 +259,16 @@ def DEL_CON_SSTF(num):
     REMOVE_SED_SSTF(num)
     # 清除ccw站台状态
     templststr = list(data.STA_CON.ccw_station)
-    templststr[num-1] = '0'
+    templststr[num - 1] = '0'
     data.STA_CON.ccw_station = ''.join(templststr)
     # 清除cw站台状态
     templststr = list(data.STA_CON.cw_station)
-    templststr[num-1] = '0'
+    templststr[num - 1] = '0'
     data.STA_CON.cw_station = ''.join(templststr)
     # 清除车辆target状态
     templststr = list(data.BUS_CON.dest)
-    templststr[num-1] = '0'
+    templststr[num - 1] = '0'
+
     data.BUS_CON.dest = ''.join(templststr)
 
 
