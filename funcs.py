@@ -72,10 +72,8 @@ def DIS_DIFF(a, b):
     return min(dis1, dis2)  # 站差
 
 
-
 # 判断行车方向
 def JUG_DIR(bus_condition=data.BUS_CON, sed_lst=data.SED_LST, index=0):
-
     dis_diff = DIS_DIFF(sed_lst[index][1], bus_condition.station + 1)
     if (sed_lst[index][1] - bus_condition.station - 1) == dis_diff:
         return 1
@@ -83,7 +81,6 @@ def JUG_DIR(bus_condition=data.BUS_CON, sed_lst=data.SED_LST, index=0):
         return 1
     else:
         return -1
-
 
 
 # 将计划写入计划表
@@ -107,8 +104,8 @@ def ADD_SED(code, instr):
             base_cmd = data.SED_LST[i]
             basei = i
             # 输入指令是“顺便”指令：
-            if DIS_DIFF(data.BUS_CON.station+1, instr) < DIS_DIFF(data.BUS_CON.station+1, base_cmd[1]) and \
-                    DIS_DIFF(instr, base_cmd[1]) < DIS_DIFF(data.BUS_CON.station+1, base_cmd[1]):
+            if DIS_DIFF(data.BUS_CON.station + 1, instr) < DIS_DIFF(data.BUS_CON.station + 1, base_cmd[1]) and \
+                    DIS_DIFF(instr, base_cmd[1]) < DIS_DIFF(data.BUS_CON.station + 1, base_cmd[1]):
                 if (data.BUS_CON.dric == 1 and code == 2) or (data.BUS_CON.dric == -1 and code == 1):
                     code += 10
                     # 判断当前方向
@@ -120,9 +117,9 @@ def ADD_SED(code, instr):
                         if dirc == -1:
 
                             while (-gl_VAR.g_totsta < 2 * (
-                                    inspos - data.SED_LST[inspos + 1][1]) < 0 or gl_VAR.g_totsta < 2 * (
-                                           inspos - data.SED_LST[inspos + 1][
-                                       1]) < 2 * gl_VAR.g_totsta) and inspos < basei:
+                                    inspos - data.SED_LST[inspos + 1][1]) < 0 or
+                                   gl_VAR.g_totsta < 2 * (inspos - data.SED_LST[inspos + 1][1]) < 2 * gl_VAR.g_totsta) \
+                                    and inspos < basei:
                                 inspos += 1
                         else:
                             while (-2 * gl_VAR.g_totsta < 2 * (
@@ -176,12 +173,12 @@ def REMOVE_SED_SSTF(del_sta):
     tmp_lst = []
     for i in range(len(data.SED_LST)):
         totaldis = gl_VAR.g_totsta * gl_VAR.g_dis
-        if 0 <= (data.SED_LST[i][1] - (data.BUS_CON.station+1))*gl_VAR.g_dis <= totaldis / 2 \
-                or -totaldis <= (data.SED_LST[i][1] - (data.BUS_CON.station+1))*gl_VAR.g_dis <= -totaldis / 2:
+        if 0 <= (data.SED_LST[i][1] - (data.BUS_CON.station + 1)) * gl_VAR.g_dis <= totaldis / 2 \
+                or -totaldis <= (data.SED_LST[i][1] - (data.BUS_CON.station + 1)) * gl_VAR.g_dis <= -totaldis / 2:
             dric = 1
         else:
             dric = -1
-        dis = DIS_DIFF(data.SED_LST[i][1], data.BUS_CON.station+1)
+        dis = DIS_DIFF(data.SED_LST[i][1], data.BUS_CON.station + 1)
 
         tmp_lst.append((i, dric, dis))
 
