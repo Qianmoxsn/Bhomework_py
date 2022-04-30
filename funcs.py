@@ -95,8 +95,8 @@ def ADD_SED(code, instr):
         if gl_VAR.g_stg == 'FCFS':
             data.SED_LST.append((code, instr))
 
-        # ‘SSTF’策略：
-        elif gl_VAR.g_stg == 'SSTF':
+        # ‘SSTF’策略或‘SCAN’策略：
+        elif gl_VAR.g_stg == 'SSTF' or gl_VAR.g_stg == 'SCAN':
             # 找出根指令
             i = 0
             while data.SED_LST[i][0] > 10:
@@ -132,8 +132,6 @@ def ADD_SED(code, instr):
             # 输入指令不是“顺便”指令：插尾
             else:
                 data.SED_LST.append((code, instr))
-        elif gl_VAR.g_stg == 'SCAN':
-            pass
 
 
 # 将计划表内的计划写入状态数据类
@@ -193,6 +191,33 @@ def REMOVE_SED_SSTF(del_sta):
         data.SED_LST.pop(short_index + 1)
 
 
+# SCAN策略，根指令，删除该计划后需要重新排序SED_LST
+def REMOVE_SED_SCAN():
+    data.SED_LST.pop(0)
+    tmp_lst = []
+    same_dirc = 0
+    for i in range(len(data.SED_LST)):
+        totaldis = gl_VAR.g_totsta * gl_VAR.g_dis
+        if 0 <= (data.SED_LST[i][1] - (data.BUS_CON.station + 1)) * gl_VAR.g_dis <= totaldis / 2 \
+                or -totaldis <= (data.SED_LST[i][1] - (data.BUS_CON.station + 1)) * gl_VAR.g_dis <= -totaldis / 2:
+            dric = 1
+        else:
+            dric = -1
+        dis = DIS_DIFF(data.SED_LST[i][1], data.BUS_CON.station + 1)
+        if dric == data.BUS_CON.dric:
+            same_dirc = 1
+        tmp_lst.append((i, dric, dis, same_dirc))
+    tmp_lst.sort(key=lambda x: (x[2], -x[3]))
+    # 找出最短时间指令索引
+    if not tmp_lst:
+        return
+    else:
+        short_index = tmp_lst[0][0]
+        # 将最短时间指令插入计划表首位
+        data.SED_LST.insert(0, data.SED_LST[short_index])
+        data.SED_LST.pop(short_index + 1)
+
+
 # 公交车行车
 def BUS_DRIVE():
     # 根据方向修改move状态
@@ -232,6 +257,9 @@ def BUS_MOV():
                 # 如策略为SSTF，根指令
                 if gl_VAR.g_stg == 'SSTF' and data.SED_LST[0][0] < 10:
                     DEL_CON_SSTF(data.SED_LST[0][1])
+                # 如策略为SCAN，根指令
+                elif gl_VAR.g_stg == 'SCAN' and data.SED_LST[0][0] < 10:
+                    DEL_CON_SCAN()
                 else:
                     # 到站，执行上、下车指令
                     if data.SED_LST[0][0] % 10 == 1 or data.SED_LST[0][0] % 10 == 2:
@@ -253,6 +281,7 @@ def BUS_MOV():
 
 # SSTF策略，根指令，同时清除三种状态
 def DEL_CON_SSTF(num):
+    # 清除计划
     REMOVE_SED_SSTF(num)
     # 清除ccw站台状态
     templststr = list(data.STA_CON.ccw_station)
@@ -265,8 +294,29 @@ def DEL_CON_SSTF(num):
     # 清除车辆target状态
     templststr = list(data.BUS_CON.dest)
     templststr[num - 1] = '0'
-
     data.BUS_CON.dest = ''.join(templststr)
+
+
+# SCAN策略，根指令
+def DEL_CON_SCAN():
+    num = data.BUS_CON.station
+    # 清除ccw站台状态
+    if data.SED_LST[0][0] % 10 == 1:
+        templststr = list(data.STA_CON.ccw_station)
+        templststr[num - 1] = '0'
+        data.STA_CON.ccw_station = ''.join(templststr)
+    # 清除cw站台状态
+    elif data.SED_LST[0][0] % 10 == 2:
+        templststr = list(data.STA_CON.cw_station)
+        templststr[num - 1] = '0'
+        data.STA_CON.cw_station = ''.join(templststr)
+    # 清除车辆target状态
+    elif data.SED_LST[0][0] % 10 == 3:
+        templststr = list(data.BUS_CON.dest)
+        templststr[num - 1] = '0'
+        data.BUS_CON.dest = ''.join(templststr)
+    # 清除计划
+    REMOVE_SED_SCAN()
 
 
 # 乘客上车（包括cw、ccw指令）-num为车辆所在车站号
