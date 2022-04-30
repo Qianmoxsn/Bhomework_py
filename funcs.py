@@ -88,7 +88,7 @@ def ADD_SED(code, instr):
     # 计划表为空，插头
     if not data.SED_LST:
         data.SED_LST.insert(0, (code, instr))
-    elif code == data.SED_LST[0][0] and instr == data.SED_LST[0][1]:
+    elif (code, instr) in data.SED_LST:
         return 'ST_BY'
     else:
         # ‘FCFS’策略：插尾
@@ -299,7 +299,7 @@ def DEL_CON_SSTF(num):
 
 # SCAN策略，根指令
 def DEL_CON_SCAN():
-    num = data.BUS_CON.station
+    num = data.BUS_CON.station + 1
     # 清除ccw站台状态
     if data.SED_LST[0][0] % 10 == 1:
         templststr = list(data.STA_CON.ccw_station)
