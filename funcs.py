@@ -237,12 +237,20 @@ def BUS_DRIVE():
         data.BUS_CON.station -= gl_VAR.g_totsta
 
 
+def first_sort_cert(tup):
+    return DIS_DIFF(1, tup[1])
+
+
 def BUS_MOV():
     # 判断计划表是否为空，如为空返回'ST_BY'状态
     if not data.SED_LST:
         return 'ST_BY'
 
     else:
+        data.is_move += 1
+        if data.is_move == 1 and (gl_VAR.g_stg == 'SCAN' or gl_VAR.g_stg == 'SSTF'):
+            data.SED_LST.sort(key=first_sort_cert)
+
         # 执行新计划时判断车辆方向（比较当前计划与存储计划是否相同，tmpCMD初值为空，两计划不同时即为新计划）
         if data.SED_LST[0] != data.tmp_CMD:
             data.BUS_CON.dric = JUG_DIR()

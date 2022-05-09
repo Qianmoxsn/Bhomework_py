@@ -1,6 +1,6 @@
 SED_LST = []
 tmp_CMD = ()
-
+is_move = 0
 
 class CONFIG:
     TOTAL_STATION = None
