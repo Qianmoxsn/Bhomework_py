@@ -96,7 +96,7 @@ def ADD_SED(code, instr):
             data.SED_LST.append((code, instr))
 
         # ‘SSTF’策略或‘SCAN’策略：
-        elif gl_VAR.g_stg == 'SSTF' or gl_VAR.g_stg == 'SCAN':
+        elif gl_VAR.g_stg == 'SSTF':
             # 找出根指令
             i = 0
             while data.SED_LST[i][0] > 10:
@@ -132,6 +132,41 @@ def ADD_SED(code, instr):
             # 输入指令不是“顺便”指令：插尾
             else:
                 data.SED_LST.append((code, instr))
+        elif gl_VAR.g_stg == 'SCAN':
+            # 找出根指令
+            i = 0
+            while data.SED_LST[i][0] > 10:
+                i += 1
+            base_cmd = data.SED_LST[i]
+            basei = i
+            # 输入指令是“顺便”指令：
+            if DIS_DIFF(data.BUS_CON.station + 1, instr) < DIS_DIFF(data.BUS_CON.station + 1, base_cmd[1]) and \
+                    DIS_DIFF(instr, base_cmd[1]) < DIS_DIFF(data.BUS_CON.station + 1, base_cmd[1]):
+                code += 10
+                # 判断当前方向
+                dirc = JUG_DIR(index=basei)
+                inspos = 0
+                if inspos >= basei:
+                    pass
+                else:
+                    if dirc == -1:
+
+                        while (-gl_VAR.g_totsta < 2 * (
+                                inspos - data.SED_LST[inspos + 1][1]) < 0 or
+                               gl_VAR.g_totsta < 2 * (inspos - data.SED_LST[inspos + 1][1]) < 2 * gl_VAR.g_totsta) \
+                                and inspos < basei:
+                            inspos += 1
+                    else:
+                        while (-2 * gl_VAR.g_totsta < 2 * (
+                                inspos - data.SED_LST[inspos + 1][1]) < -gl_VAR.g_totsta or 0 < 2 * (
+                                       inspos - data.SED_LST[inspos + 1][1]) < gl_VAR.g_totsta) and inspos < basei:
+                            inspos += 1
+                data.SED_LST.insert(inspos, (code, instr))
+            else:
+                data.SED_LST.append((code, instr))
+            # 输入指令不是“顺便”指令：插尾
+        else:
+            data.SED_LST.append((code, instr))
 
 
 # 将计划表内的计划写入状态数据类
@@ -195,8 +230,8 @@ def REMOVE_SED_SSTF(del_sta):
 def REMOVE_SED_SCAN():
     data.SED_LST.pop(0)
     tmp_lst = []
-    same_dirc = 0
     for i in range(len(data.SED_LST)):
+        same_dirc = 0
         totaldis = gl_VAR.g_totsta * gl_VAR.g_dis
         if 0 <= (data.SED_LST[i][1] - (data.BUS_CON.station + 1)) * gl_VAR.g_dis <= totaldis / 2 \
                 or -totaldis <= (data.SED_LST[i][1] - (data.BUS_CON.station + 1)) * gl_VAR.g_dis <= -totaldis / 2:
@@ -207,7 +242,7 @@ def REMOVE_SED_SCAN():
         if dric == data.BUS_CON.dric:
             same_dirc = 1
         tmp_lst.append((i, dric, dis, same_dirc))
-    tmp_lst.sort(key=lambda x: (x[2], -x[3]))
+    tmp_lst.sort(key=lambda x: (-x[3], x[2]))
     # 找出最短时间指令索引
     if not tmp_lst:
         return
