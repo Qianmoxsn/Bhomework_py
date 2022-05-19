@@ -51,8 +51,9 @@ def OP_C(bus_condition, sta_condition):
     print("STATION:")
     print("clockwise:%s" % sta_condition.cw_station)
     print("counterclockwise:%s" % sta_condition.ccw_station)
-
-
+    print("position",%d bus condition.dest)
+    print(position),%s bus-bus_condition
+    print()
 # 结尾控制台输出
 def OP_C_E():
     print("end", end='')
