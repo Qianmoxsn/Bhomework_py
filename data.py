@@ -11,7 +11,7 @@ class CONFIG:
         self.TOTAL_STATION = nsta
         self.STRATEGY = stg
         self.DISTANCE = dis
-        print('Config:\nTotal_station:', self.TOTAL_STATION, ' Strategy:', self.STRATEGY, ' Distance:', self.DISTANCE)
+        # print('Config:\nTotal_station:', self.TOTAL_STATION, ' Strategy:', self.STRATEGY, ' Distance:', self.DISTANCE)
 
 
 class BUS_CON:

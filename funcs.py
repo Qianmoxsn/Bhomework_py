@@ -44,7 +44,7 @@ def OP_C(bus_condition, sta_condition):
     position = bus_condition.station * gl_VAR.g_dis + bus_condition.move
     if position < 0:
         position += gl_VAR.g_dis * gl_VAR.g_totsta
-    print("---TIME: %d---" % gl_VAR.g_time)
+    print("TIME:%d" % gl_VAR.g_time)
     print("BUS:")
     print("position:%d" % position)
     print("target:%s" % bus_condition.dest)
@@ -107,6 +107,7 @@ def ADD_SED(code, instr):
             if DIS_DIFF(data.BUS_CON.station + 1, instr) < DIS_DIFF(data.BUS_CON.station + 1, base_cmd[1]) and \
                     DIS_DIFF(instr, base_cmd[1]) < DIS_DIFF(data.BUS_CON.station + 1, base_cmd[1]):
                 if (data.BUS_CON.dric == 1 and code == 2) or (data.BUS_CON.dric == -1 and code == 1):
+
                     code += 10
                     # 判断当前方向
                     dirc = JUG_DIR(index=basei)
@@ -195,6 +196,7 @@ def REMOVE_SED(index=0):
     data.SED_LST.pop(index)
 
 
+
 # SSTF策略，根指令，删除该站全部计划后需要重新排序SED_LST
 def REMOVE_SED_SSTF(del_sta):
     if (1, del_sta) in data.SED_LST:
@@ -224,6 +226,7 @@ def REMOVE_SED_SSTF(del_sta):
         # 将最短时间指令插入计划表首位
         data.SED_LST.insert(0, data.SED_LST[short_index])
         data.SED_LST.pop(short_index + 1)
+
 
 
 # SCAN策略，根指令，删除该计划后需要重新排序SED_LST
