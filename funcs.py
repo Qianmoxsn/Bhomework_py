@@ -51,9 +51,9 @@ def OP_C(bus_condition, sta_condition):
     print("STATION:")
     print("clockwise:%s" % sta_condition.cw_station)
     print("counterclockwise:%s" % sta_condition.ccw_station)
-    print("position",%d bus condition.dest)
-    print(position),%s bus-bus_condition
-    print()
+    #print("position",%s bus_condition)
+    #print(position),
+    #print()
 # 结尾控制台输出
 def OP_C_E():
     print("end", end='')
@@ -107,17 +107,18 @@ def ADD_SED(code, instr):
             # 输入指令是“顺便”指令：
             if DIS_DIFF(data.BUS_CON.station + 1, instr) < DIS_DIFF(data.BUS_CON.station + 1, base_cmd[1]) and \
                     DIS_DIFF(instr, base_cmd[1]) < DIS_DIFF(data.BUS_CON.station + 1, base_cmd[1]):
-                if (0<2*(data.SED_LST[i][1]-data.BUS_CON.station)<=gl_VAR.g_totsta or -2*gl_VAR.g_totsta<2*data.SED_LST[i][1]-data.BUS_CON.station<=-gl_VAR.g_totsta):
+                if (0<2*(data.SED_LST[i][1]-data.BUS_CON.station-1)<=gl_VAR.g_totsta or -2*gl_VAR.g_totsta<2*(data.SED_LST[i][1]-data.BUS_CON.station-1)<=-gl_VAR.g_totsta):
                     a=1
                 else:
                     a=-1
-                if (0 < 2*(instr - data.BUS_CON.station) <= gl_VAR.g_totsta or -2*gl_VAR.g_totsta <2*(instr - data.BUS_CON.station )<= -gl_VAR.g_totsta):
-                    b= 1
-                else:
-                    b= -1
+                #if
+                #if (0 < 2*(instr - data.BUS_CON.station-1) <= gl_VAR.g_totsta or -2*gl_VAR.g_totsta <2*(instr - data.BUS_CON.station -1)<= -gl_VAR.g_totsta):
+                #    b= 1
+               # else:
+                #    b= -1
 
                 #if (data.BUS_CON.dric == 1 and code == 2) or (data.BUS_CON.dric == -1 and code == 1):
-                if(a==b):
+                if (code==1 and a==-1) or (code==2 and a==1) or code==3:
                     code += 10
                     # 判断当前方向
                     dirc = JUG_DIR(index=basei)
