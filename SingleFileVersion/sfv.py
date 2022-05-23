@@ -55,7 +55,7 @@ class STA_CON:
 def SET_CONFIG():
     # 设置缺省值
     nsta, stg, dis = 5, 'FCFS', 2
-    confile = open('../dict.dic', mode='r')
+    confile = open('dict.dic', mode='r')
     for line in confile:
         if line[0] == '#':
             continue
@@ -104,7 +104,7 @@ def OP_C(bus_condition, sta_condition):
 
 # 结尾控制台输出
 def OP_C_E():
-    print("end", end='')
+    print("end")
     return 0
 
 

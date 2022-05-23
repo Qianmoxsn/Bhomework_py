@@ -51,12 +51,14 @@ def OP_C(bus_condition, sta_condition):
     print("STATION:")
     print("clockwise:%s" % sta_condition.cw_station)
     print("counterclockwise:%s" % sta_condition.ccw_station)
-    #print("position",%s bus_condition)
-    #print(position),
-    #print()
+    # print("position",%s bus_condition)
+    # print(position),
+    # print()
+
+
 # 结尾控制台输出
 def OP_C_E():
-    print("end", end='')
+    print("end")
     return 0
 
 
@@ -107,18 +109,20 @@ def ADD_SED(code, instr):
             # 输入指令是“顺便”指令：
             if DIS_DIFF(data.BUS_CON.station + 1, instr) < DIS_DIFF(data.BUS_CON.station + 1, base_cmd[1]) and \
                     DIS_DIFF(instr, base_cmd[1]) < DIS_DIFF(data.BUS_CON.station + 1, base_cmd[1]):
-                if (0<2*(data.SED_LST[i][1]-data.BUS_CON.station-1)<=gl_VAR.g_totsta or -2*gl_VAR.g_totsta<2*(data.SED_LST[i][1]-data.BUS_CON.station-1)<=-gl_VAR.g_totsta):
-                    a=1
+                if (0 < 2 * (data.SED_LST[i][
+                                 1] - data.BUS_CON.station - 1) <= gl_VAR.g_totsta or -2 * gl_VAR.g_totsta < 2 * (
+                        data.SED_LST[i][1] - data.BUS_CON.station - 1) <= -gl_VAR.g_totsta):
+                    a = 1
                 else:
-                    a=-1
-                #if
-                #if (0 < 2*(instr - data.BUS_CON.station-1) <= gl_VAR.g_totsta or -2*gl_VAR.g_totsta <2*(instr - data.BUS_CON.station -1)<= -gl_VAR.g_totsta):
+                    a = -1
+                # if
+                # if (0 < 2*(instr - data.BUS_CON.station-1) <= gl_VAR.g_totsta or -2*gl_VAR.g_totsta <2*(instr - data.BUS_CON.station -1)<= -gl_VAR.g_totsta):
                 #    b= 1
-               # else:
+                # else:
                 #    b= -1
 
-                #if (data.BUS_CON.dric == 1 and code == 2) or (data.BUS_CON.dric == -1 and code == 1):
-                if (code==1 and a==-1) or (code==2 and a==1) or code==3:
+                # if (data.BUS_CON.dric == 1 and code == 2) or (data.BUS_CON.dric == -1 and code == 1):
+                if (code == 1 and a == -1) or (code == 2 and a == 1) or code == 3:
                     code += 10
                     # 判断当前方向
                     dirc = JUG_DIR(index=basei)
@@ -207,7 +211,6 @@ def REMOVE_SED(index=0):
     data.SED_LST.pop(index)
 
 
-
 # SSTF策略，根指令，删除该站全部计划后需要重新排序SED_LST
 def REMOVE_SED_SSTF(del_sta):
     if (1, del_sta) in data.SED_LST:
@@ -237,7 +240,6 @@ def REMOVE_SED_SSTF(del_sta):
         # 将最短时间指令插入计划表首位
         data.SED_LST.insert(0, data.SED_LST[short_index])
         data.SED_LST.pop(short_index + 1)
-
 
 
 # SCAN策略，根指令，删除该计划后需要重新排序SED_LST
