@@ -1,5 +1,6 @@
 import data
 import gl_VAR
+import os
 
 
 # 设定配置参数
@@ -60,6 +61,23 @@ def OP_C(bus_condition, sta_condition):
 def OP_C_E():
     print("end")
     return 0
+
+
+# 文件输出（动画）
+def OP_C_F(bus_condition):
+    position = bus_condition.station * gl_VAR.g_dis + bus_condition.move
+    if position < 0:
+        position += gl_VAR.g_dis * gl_VAR.g_totsta
+
+    # write to file
+    f = open('GUI/outfile.txt', 'a')
+    f.write("TIME:%d\n" % gl_VAR.g_time)
+    f.write("position:%d\n" % position)
+    if data.SED_LST:
+        f.write("target:%s\n" % str(data.SED_LST[0]))
+    else:
+        f.write("target:-1\n")
+    f.close()
 
 
 # 记录总时间
