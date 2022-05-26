@@ -53,9 +53,14 @@ if __name__ == '__main__':
             app = QApplication(sys.argv)
             MainWindow = QMainWindow()
             ui = gui.Ui_MainWindow()
+            # 初始化页面控件
             ui.setupUi(MainWindow)
+            # 设定进度条最大值（总时长）
             ui.set_progressbar(gl_VAR.g_time)
+            # 设定配置文件（现实）
             ui.config(strategy=gl_VAR.g_stg, distance=str(gl_VAR.g_dis), stations=str(gl_VAR.g_totsta))
+            # 设定总时间（显示）
             ui.set_GT(GT=str(gl_VAR.g_time))
+            # 开启页面
             MainWindow.show()
             sys.exit(app.exec_())
