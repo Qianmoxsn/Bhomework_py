@@ -4,6 +4,7 @@ import os
 
 
 # 设定配置参数
+# 设定配置参数
 def SET_CONFIG():
     # 设置缺省值
     nsta, stg, dis = 5, 'FCFS', 2
@@ -11,7 +12,8 @@ def SET_CONFIG():
     for line in confile:
         if line[0] == '#':
             continue
-        tmplist = line.split(' = ')
+        tmplist = line.split('=')
+        tmplist[1] = tmplist[1].strip()
         if tmplist[0] == 'TOTAL_STATION':
             nsta = int(tmplist[1])
         elif tmplist[0] == 'STRATEGY':
