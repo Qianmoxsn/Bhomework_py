@@ -1,7 +1,9 @@
 import data
 import gl_VAR
+import os
 
 
+# 设定配置参数
 # 设定配置参数
 def SET_CONFIG():
     # 设置缺省值
@@ -10,7 +12,8 @@ def SET_CONFIG():
     for line in confile:
         if line[0] == '#':
             continue
-        tmplist = line.split(' = ')
+        tmplist = line.split('=')
+        tmplist[1] = tmplist[1].strip()
         if tmplist[0] == 'TOTAL_STATION':
             nsta = int(tmplist[1])
         elif tmplist[0] == 'STRATEGY':
@@ -60,6 +63,23 @@ def OP_C(bus_condition, sta_condition):
 def OP_C_E():
     print("end")
     return 0
+
+
+# 文件输出（动画）
+def OP_C_F(bus_condition):
+    position = bus_condition.station * gl_VAR.g_dis + bus_condition.move
+    if position < 0:
+        position += gl_VAR.g_dis * gl_VAR.g_totsta
+
+    # write to file
+    f = open('GUI/outfile.txt', 'a')
+    f.write("TIME:%d\n" % gl_VAR.g_time)
+    f.write("position:%d\n" % position)
+    if data.SED_LST:
+        f.write("target:%s\n" % str(data.SED_LST[0]))
+    else:
+        f.write("target:-1\n")
+    f.close()
 
 
 # 记录总时间
@@ -149,37 +169,65 @@ def ADD_SED(code, instr):
             else:
                 data.SED_LST.append((code, instr))
         elif gl_VAR.g_stg == 'SCAN':
-            # 找出根指令
-            i = 0
-            while data.SED_LST[i][0] > 10:
-                i += 1
-            base_cmd = data.SED_LST[i]
-            basei = i
-            # 输入指令是“顺便”指令：
-            if DIS_DIFF(data.BUS_CON.station + 1, instr) < DIS_DIFF(data.BUS_CON.station + 1, base_cmd[1]) and \
-                    DIS_DIFF(instr, base_cmd[1]) < DIS_DIFF(data.BUS_CON.station + 1, base_cmd[1]):
-                code += 10
-                # 判断当前方向
-                dirc = JUG_DIR(index=basei)
-                inspos = 0
-                if inspos >= basei:
-                    pass
-                else:
-                    if dirc == -1:
-
-                        while (-gl_VAR.g_totsta < 2 * (
-                                inspos - data.SED_LST[inspos + 1][1]) < 0 or
-                               gl_VAR.g_totsta < 2 * (inspos - data.SED_LST[inspos + 1][1]) < 2 * gl_VAR.g_totsta) \
-                                and inspos < basei:
-                            inspos += 1
-                    else:
-                        while (-2 * gl_VAR.g_totsta < 2 * (
-                                inspos - data.SED_LST[inspos + 1][1]) < -gl_VAR.g_totsta or 0 < 2 * (
-                                       inspos - data.SED_LST[inspos + 1][1]) < gl_VAR.g_totsta) and inspos < basei:
-                            inspos += 1
-                data.SED_LST.insert(inspos, (code, instr))
-            else:
+            if not data.tmp_CMD:
+                # chawei
                 data.SED_LST.append((code, instr))
+                tmp_lst = []
+                for i in range(len(data.SED_LST)):
+                    same_dirc = 0
+                    totaldis = gl_VAR.g_totsta * gl_VAR.g_dis
+                    if 0 <= (data.SED_LST[i][1] - (data.BUS_CON.station + 1)) * gl_VAR.g_dis <= totaldis / 2 \
+                            or -totaldis <= (
+                            data.SED_LST[i][1] - (data.BUS_CON.station + 1)) * gl_VAR.g_dis <= -totaldis / 2:
+                        dric = 1
+                    else:
+                        dric = -1
+                    dis = DIS_DIFF(data.SED_LST[i][1], data.BUS_CON.station + 1)
+                    if dric == data.BUS_CON.dric:
+                        same_dirc = 1
+                    tmp_lst.append((i, dric, dis, same_dirc))
+                tmp_lst.sort(key=lambda x: (x[2],-x[1]))
+                # 找出最短时间指令索引
+                if not tmp_lst:
+                    return
+                else:
+                    short_index = tmp_lst[0][0]
+                    # 将最短时间指令插入计划表首位
+                    data.SED_LST.insert(0, data.SED_LST[short_index])
+                    data.SED_LST.pop(short_index + 1)
+            else:
+
+                # 找出根指令
+                i = 0
+                while data.SED_LST[i][0] > 10:
+                    i += 1
+                base_cmd = data.SED_LST[i]
+                basei = i
+                # 输入指令是“顺便”指令：
+                if DIS_DIFF(data.BUS_CON.station + 1, instr) < DIS_DIFF(data.BUS_CON.station + 1, base_cmd[1]) and \
+                        DIS_DIFF(instr, base_cmd[1]) < DIS_DIFF(data.BUS_CON.station + 1, base_cmd[1]):
+                    code += 10
+                    # 判断当前方向
+                    dirc = JUG_DIR(index=basei)
+                    inspos = 0
+                    if inspos >= basei:
+                        pass
+                    else:
+                        if dirc == -1:
+
+                            while (-gl_VAR.g_totsta < 2 * (
+                                    inspos - data.SED_LST[inspos + 1][1]) < 0 or
+                                   gl_VAR.g_totsta < 2 * (inspos - data.SED_LST[inspos + 1][1]) < 2 * gl_VAR.g_totsta) \
+                                    and inspos < basei:
+                                inspos += 1
+                        else:
+                            while (-2 * gl_VAR.g_totsta < 2 * (
+                                    inspos - data.SED_LST[inspos + 1][1]) < -gl_VAR.g_totsta or 0 < 2 * (
+                                           inspos - data.SED_LST[inspos + 1][1]) < gl_VAR.g_totsta) and inspos < basei:
+                                inspos += 1
+                    data.SED_LST.insert(inspos, (code, instr))
+                else:
+                    data.SED_LST.append((code, instr))
             # 输入指令不是“顺便”指令：插尾
         else:
             data.SED_LST.append((code, instr))
