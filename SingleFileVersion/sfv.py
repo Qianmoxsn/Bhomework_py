@@ -84,7 +84,8 @@ def IP_C():
     codediction = {'end': -1, 'clock': 0, 'counterclockwise': 1, 'clockwise': 2, 'target': 3}
     # raw_code = input('->in> ')
     raw_code = input()
-    raw_code = raw_code.rstrip(' ')
+    raw_code = raw_code.strip(' ')
+    raw_code = raw_code.strip('\t')
     if raw_code == '':
         return -2, instr
     if raw_code[0] == '#':

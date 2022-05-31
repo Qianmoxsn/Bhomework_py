@@ -42,7 +42,7 @@ if __name__ == '__main__':
             # 执行TIMR函数
             funcs.TIMR()
             # 执行OP_C函数
-            # funcs.OP_C(data.BUS_CON, data.STA_CON)
+            funcs.OP_C(data.BUS_CON, data.STA_CON)
             # 执行OP_C_F函数
             funcs.OP_C_F(data.BUS_CON)
         elif code == -1:

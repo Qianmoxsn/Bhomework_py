@@ -13,12 +13,15 @@ def SET_CONFIG():
         if line[0] == '#':
             continue
         tmplist = line.split('=')
-        tmplist[1] = tmplist[1].strip()
+        tmplist[0] = tmplist[0].strip(' ')
+        tmplist[1] = tmplist[1].strip(' ')
+        tmplist[1] = tmplist[1].strip('\n')
+
         if tmplist[0] == 'TOTAL_STATION':
             nsta = int(tmplist[1])
         elif tmplist[0] == 'STRATEGY':
             stg = tmplist[1]
-            stg = stg.strip('\n')
+            #stg = stg.strip('\n')
         elif tmplist[0] == 'DISTANCE':
             dis = int(tmplist[1])
     confile.close()
@@ -31,7 +34,8 @@ def IP_C():
     codediction = {'end': -1, 'clock': 0, 'counterclockwise': 1, 'clockwise': 2, 'target': 3}
     # raw_code = input('->in> ')
     raw_code = input()
-    raw_code = raw_code.rstrip(' ')
+    raw_code = raw_code.strip(' ')
+    raw_code = raw_code.strip('\t')
     if raw_code == '':
         return -2, instr
     if raw_code[0] == '#':
