@@ -31,6 +31,11 @@ def IP_C():
     codediction = {'end': -1, 'clock': 0, 'counterclockwise': 1, 'clockwise': 2, 'target': 3}
     # raw_code = input('->in> ')
     raw_code = input()
+    raw_code = raw_code.rstrip(' ')
+    if raw_code == '':
+        return -2, instr
+    if raw_code[0] == '#':
+        return -2, instr
     if ' ' in raw_code:
         code, instr = raw_code.split(' ')
     else:
@@ -169,6 +174,7 @@ def ADD_SED(code, instr):
             else:
                 data.SED_LST.append((code, instr))
         elif gl_VAR.g_stg == 'SCAN':
+
             if not data.tmp_CMD:
                 # chawei
                 data.SED_LST.append((code, instr))

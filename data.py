@@ -1,4 +1,5 @@
 SED_LST = []
+SCAN_BUFF = []
 tmp_CMD = ()
 is_move = 0
 

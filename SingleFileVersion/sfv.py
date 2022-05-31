@@ -3,8 +3,8 @@
 # ------------------------------------------------
 # relocate IO stream
 # import sys
-# sys.stdin = open('input.txt', mode='r')
-# sys.stdout = open('output.txt', mode='w')
+# sys.stdin = open('input.txt', mode='r', encoding='utf-8')
+# sys.stdout = open('output.txt', mode='w', encoding='utf-8')
 # ------------------------------------------------
 g_totsta = 0
 g_stg = 0
@@ -65,6 +65,7 @@ def SET_CONFIG():
         if line[0] == '#':
             continue
         tmplist = line.split('=')
+        tmplist[0] = tmplist[0].strip()
         tmplist[1] = tmplist[1].strip()
         if tmplist[0] == 'TOTAL_STATION':
             nsta = int(tmplist[1])
@@ -83,6 +84,7 @@ def IP_C():
     codediction = {'end': -1, 'clock': 0, 'counterclockwise': 1, 'clockwise': 2, 'target': 3}
     # raw_code = input('->in> ')
     raw_code = input()
+    raw_code = raw_code.rstrip(' ')
     if raw_code == '':
         return -2, instr
     if raw_code[0] == '#':
