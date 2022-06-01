@@ -210,6 +210,8 @@ def ADD_SED(code, instr):
             else:
                 SED_LST.append((code, instr))
         elif g_stg == 'SCAN':
+                if (BUS_CON.station + 1 == instr):
+                    NEW_LST.append((code, instr))
                 if not tmp_CMD:
                     # chawei
                     SED_LST.append((code, instr))
@@ -482,7 +484,19 @@ def DEL_CON_SCAN():
         BUS_CON.dest = ''.join(templststr)
     # 清除计划
     REMOVE_SED_SCAN()
-
+    if NEW_LST:
+        if NEW_LST[0][0] == 1:
+            templststr = list(STA_CON.ccw_station)
+            templststr[num - 1] = '1'
+            STA_CON.ccw_station = ''.join(templststr)
+        elif NEW_LST[0][0] == 2:
+            templststr = list(STA_CON.cw_station)
+            templststr[num - 1] = '1'
+            STA_CON.cw_station = ''.join(templststr)
+        elif NEW_LST[0][0] == 3:
+            templststr = list(BUS_CON.dest)
+            templststr[num - 1] = '1'
+            BUS_CON.dest = ''.join(templststr)
 
 # 乘客上车（包括cw、ccw指令）-num为车辆所在车站号
 def PSG_U(code, num):
