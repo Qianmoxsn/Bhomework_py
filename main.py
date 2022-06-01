@@ -39,6 +39,9 @@ if __name__ == '__main__':
             # 执行BUS_MOV函数
             if funcs.BUS_MOV() == 'ST_BY':
                 pass
+            if data.NEW_LST:
+                data.SED_LST.append(data.NEW_LST[0])
+                data.NEW_LST.pop(0)
             # 执行TIMR函数
             funcs.TIMR()
             # 执行OP_C函数

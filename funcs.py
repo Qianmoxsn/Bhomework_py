@@ -129,54 +129,57 @@ def ADD_SED(code, instr):
 
         # ‘SSTF’策略或‘SCAN’策略：
         elif gl_VAR.g_stg == 'SSTF':
-            # 找出根指令
-            i = 0
-            while data.SED_LST[i][0] > 10:
-                i += 1
-            base_cmd = data.SED_LST[i]
-            basei = i
-            # 输入指令是“顺便”指令：
-            if DIS_DIFF(data.BUS_CON.station + 1, instr) < DIS_DIFF(data.BUS_CON.station + 1, base_cmd[1]) and \
-                    DIS_DIFF(instr, base_cmd[1]) < DIS_DIFF(data.BUS_CON.station + 1, base_cmd[1]):
-                if (0 < 2 * (data.SED_LST[i][
-                                 1] - data.BUS_CON.station - 1) <= gl_VAR.g_totsta or -2 * gl_VAR.g_totsta < 2 * (
-                        data.SED_LST[i][1] - data.BUS_CON.station - 1) <= -gl_VAR.g_totsta):
-                    a = 1
-                else:
-                    a = -1
-                # if
-                # if (0 < 2*(instr - data.BUS_CON.station-1) <= gl_VAR.g_totsta or -2*gl_VAR.g_totsta <2*(instr - data.BUS_CON.station -1)<= -gl_VAR.g_totsta):
-                #    b= 1
-                # else:
-                #    b= -1
-
-                # if (data.BUS_CON.dric == 1 and code == 2) or (data.BUS_CON.dric == -1 and code == 1):
-                if (code == 1 and a == -1) or (code == 2 and a == 1) or code == 3:
-                    code += 10
-                    # 判断当前方向
-                    dirc = JUG_DIR(index=basei)
-                    inspos = 0
-                    if inspos >= basei:
-                        pass
+            if (data.BUS_CON.station+1== instr):
+                data.NEW_LST.append((code, instr))
+            else:
+                # 找出根指令
+                i = 0
+                while data.SED_LST[i][0] > 10:
+                    i += 1
+                base_cmd = data.SED_LST[i]
+                basei = i
+                # 输入指令是“顺便”指令：
+                if DIS_DIFF(data.BUS_CON.station + 1, instr) < DIS_DIFF(data.BUS_CON.station + 1, base_cmd[1]) and \
+                        DIS_DIFF(instr, base_cmd[1]) < DIS_DIFF(data.BUS_CON.station + 1, base_cmd[1]):
+                    if (0 < 2 * (data.SED_LST[i][
+                                     1] - data.BUS_CON.station - 1) <= gl_VAR.g_totsta or -2 * gl_VAR.g_totsta < 2 * (
+                            data.SED_LST[i][1] - data.BUS_CON.station - 1) <= -gl_VAR.g_totsta):
+                        a = 1
                     else:
-                        if dirc == -1:
+                        a = -1
+                    # if
+                    # if (0 < 2*(instr - data.BUS_CON.station-1) <= gl_VAR.g_totsta or -2*gl_VAR.g_totsta <2*(instr - data.BUS_CON.station -1)<= -gl_VAR.g_totsta):
+                    #    b= 1
+                    # else:
+                    #    b= -1
 
-                            while (-gl_VAR.g_totsta < 2 * (
-                                    inspos - data.SED_LST[inspos + 1][1]) < 0 or
-                                   gl_VAR.g_totsta < 2 * (inspos - data.SED_LST[inspos + 1][1]) < 2 * gl_VAR.g_totsta) \
-                                    and inspos < basei:
-                                inspos += 1
+                    # if (data.BUS_CON.dric == 1 and code == 2) or (data.BUS_CON.dric == -1 and code == 1):
+                    if (code == 1 and a == -1) or (code == 2 and a == 1) or code == 3:
+                        code += 10
+                        # 判断当前方向
+                        dirc = JUG_DIR(index=basei)
+                        inspos = 0
+                        if inspos >= basei:
+                            pass
                         else:
-                            while (-2 * gl_VAR.g_totsta < 2 * (
-                                    inspos - data.SED_LST[inspos + 1][1]) < -gl_VAR.g_totsta or 0 < 2 * (
-                                           inspos - data.SED_LST[inspos + 1][1]) < gl_VAR.g_totsta) and inspos < basei:
-                                inspos += 1
-                    data.SED_LST.insert(inspos, (code, instr))
+                            if dirc == -1:
+
+                                while (-gl_VAR.g_totsta < 2 * (
+                                        inspos - data.SED_LST[inspos + 1][1]) < 0 or
+                                       gl_VAR.g_totsta < 2 * (inspos - data.SED_LST[inspos + 1][1]) < 2 * gl_VAR.g_totsta) \
+                                        and inspos < basei:
+                                    inspos += 1
+                            else:
+                                while (-2 * gl_VAR.g_totsta < 2 * (
+                                        inspos - data.SED_LST[inspos + 1][1]) < -gl_VAR.g_totsta or 0 < 2 * (
+                                               inspos - data.SED_LST[inspos + 1][1]) < gl_VAR.g_totsta) and inspos < basei:
+                                    inspos += 1
+                        data.SED_LST.insert(inspos, (code, instr))
+                    else:
+                        data.SED_LST.append((code, instr))
+                # 输入指令不是“顺便”指令：插尾
                 else:
                     data.SED_LST.append((code, instr))
-            # 输入指令不是“顺便”指令：插尾
-            else:
-                data.SED_LST.append((code, instr))
         elif gl_VAR.g_stg == 'SCAN':
 
             if not data.tmp_CMD:
@@ -277,6 +280,7 @@ def REMOVE_SED_SSTF(del_sta):
         data.SED_LST.remove((2, del_sta))
     if (3, del_sta) in data.SED_LST:
         data.SED_LST.remove((3, del_sta))
+
     tmp_lst = []
     for i in range(len(data.SED_LST)):
         totaldis = gl_VAR.g_totsta * gl_VAR.g_dis
@@ -412,6 +416,20 @@ def DEL_CON_SSTF(num):
     templststr = list(data.BUS_CON.dest)
     templststr[num - 1] = '0'
     data.BUS_CON.dest = ''.join(templststr)
+    # 加入新表状态
+    if data.NEW_LST:
+        if data.NEW_LST[0][0] == 1:
+            templststr = list(data.STA_CON.ccw_station)
+            templststr[num - 1] = '1'
+            data.STA_CON.ccw_station = ''.join(templststr)
+        elif data.NEW_LST[0][0] == 2:
+            templststr = list(data.STA_CON.cw_station)
+            templststr[num - 1] = '1'
+            data.STA_CON.cw_station = ''.join(templststr)
+        elif data.NEW_LST[0][0] == 3:
+            templststr = list(data.BUS_CON.dest)
+            templststr[num - 1] = '1'
+            data.BUS_CON.dest = ''.join(templststr)
 
 
 # SCAN策略，根指令

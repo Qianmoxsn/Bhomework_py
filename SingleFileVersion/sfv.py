@@ -13,7 +13,7 @@ g_time = 0
 SED_LST = []
 tmp_CMD = ()
 is_move = 0
-
+NEW_LST = []
 
 class CONFIG:
     TOTAL_STATION = None
@@ -160,6 +160,8 @@ def ADD_SED(code, instr):
 
         # ‘SSTF’策略或‘SCAN’策略：
         elif g_stg == 'SSTF':
+            if (BUS_CON.station+1== instr):
+                NEW_LST.append((code, instr))
             # 找出根指令
             i = 0
             while SED_LST[i][0] > 10:
@@ -444,6 +446,20 @@ def DEL_CON_SSTF(num):
     templststr = list(BUS_CON.dest)
     templststr[num - 1] = '0'
     BUS_CON.dest = ''.join(templststr)
+    # 加入新表状态
+    if NEW_LST:
+        if NEW_LST[0][0] == 1:
+            templststr = list(STA_CON.ccw_station)
+            templststr[num - 1] = '1'
+            STA_CON.ccw_station = ''.join(templststr)
+        elif NEW_LST[0][0] == 2:
+            templststr = list(STA_CON.cw_station)
+            templststr[num - 1] = '1'
+            STA_CON.cw_station = ''.join(templststr)
+        elif NEW_LST[0][0] == 3:
+            templststr = list(BUS_CON.dest)
+            templststr[num - 1] = '1'
+            BUS_CON.dest = ''.join(templststr)
 
 
 # SCAN策略，根指令
@@ -525,6 +541,9 @@ if __name__ == '__main__':
             # 执行BUS_MOV函数
             if BUS_MOV() == 'ST_BY':
                 pass
+            if NEW_LST:
+                SED_LST.append(NEW_LST[0])
+                NEW_LST.pop(0)
             # 执行TIMR函数
             TIMR()
             # 执行OP_C函数
