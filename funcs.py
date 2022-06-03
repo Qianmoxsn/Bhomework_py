@@ -76,7 +76,7 @@ def OP_C_F(bus_condition):
     f.write("TIME:%d\n" % gl_VAR.g_time)
     f.write("position:%d\n" % position)
     if data.SED_LST:
-        f.write("target:%s\n" % str(data.SED_LST[0]))
+        f.write("target:%d\n" % int(str(data.SED_LST[0][1])))
     else:
         f.write("target:-1\n")
     f.close()
