@@ -209,7 +209,7 @@ class Ui_MainWindow(object):
         self.exp_label.setObjectName("exp_label")
         self.gridLayout_2.addWidget(self.exp_label, 0, 1, 1, 1)
         self.progressBar = QtWidgets.QProgressBar(self.layoutWidget2)
-        self.progressBar.setProperty("value", 0)
+        self.progressBar.setProperty("value", 24)
         self.progressBar.setObjectName("progressBar")
         self.gridLayout_2.addWidget(self.progressBar, 1, 0, 1, 2)
         self.layoutWidget3 = QtWidgets.QWidget(self.centralwidget)
@@ -250,9 +250,102 @@ class Ui_MainWindow(object):
         self.label_14.setFont(font)
         self.label_14.setObjectName("label_14")
         self.gridLayout_3.addWidget(self.label_14, 0, 1, 1, 2)
-        self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox.setGeometry(QtCore.QRect(50, 80, 451, 431))
-        self.groupBox.setObjectName("groupBox")
+        self.st9 = QtWidgets.QPushButton(self.centralwidget)
+        self.st9.setGeometry(QtCore.QRect(530, 510, 40, 40))
+        self.st9.setStyleSheet("\n"
+"QPushButton{/*默认显示*/\n"
+"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+"background-color:rgba(0,255,0,255);/*背景色*/\n"
+"}")
+        self.st9.setObjectName("st9")
+        self.st1 = QtWidgets.QPushButton(self.centralwidget)
+        self.st1.setGeometry(QtCore.QRect(130, 510, 40, 40))
+        self.st1.setStyleSheet("\n"
+"QPushButton{/*默认显示*/\n"
+"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+"background-color:rgba(0,255,0,255);/*背景色*/\n"
+"}")
+        self.st1.setObjectName("st1")
+        self.st10 = QtWidgets.QPushButton(self.centralwidget)
+        self.st10.setGeometry(QtCore.QRect(580, 510, 40, 40))
+        self.st10.setStyleSheet("\n"
+"QPushButton{/*默认显示*/\n"
+"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+"background-color:rgba(0,255,0,255);/*背景色*/\n"
+"}")
+        self.st10.setObjectName("st10")
+        self.st2 = QtWidgets.QPushButton(self.centralwidget)
+        self.st2.setGeometry(QtCore.QRect(180, 510, 40, 40))
+        self.st2.setStyleSheet("\n"
+"QPushButton{/*默认显示*/\n"
+"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+"background-color:rgba(0,255,0,255);/*背景色*/\n"
+"}")
+        self.st2.setObjectName("st2")
+        self.st3 = QtWidgets.QPushButton(self.centralwidget)
+        self.st3.setGeometry(QtCore.QRect(230, 510, 40, 40))
+        self.st3.setStyleSheet("\n"
+"QPushButton{/*默认显示*/\n"
+"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+"background-color:rgba(0,255,0,255);/*背景色*/\n"
+"}")
+        self.st3.setObjectName("st3")
+        self.st4 = QtWidgets.QPushButton(self.centralwidget)
+        self.st4.setGeometry(QtCore.QRect(280, 510, 40, 40))
+        self.st4.setStyleSheet("\n"
+"QPushButton{/*默认显示*/\n"
+"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+"background-color:rgba(0,255,0,255);/*背景色*/\n"
+"}")
+        self.st4.setObjectName("st4")
+        self.st5 = QtWidgets.QPushButton(self.centralwidget)
+        self.st5.setGeometry(QtCore.QRect(330, 510, 40, 40))
+        self.st5.setStyleSheet("\n"
+"QPushButton{/*默认显示*/\n"
+"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+"background-color:rgba(0,255,0,255);/*背景色*/\n"
+"}")
+        self.st5.setObjectName("st5")
+        self.st6 = QtWidgets.QPushButton(self.centralwidget)
+        self.st6.setGeometry(QtCore.QRect(380, 510, 40, 40))
+        self.st6.setStyleSheet("\n"
+"QPushButton{/*默认显示*/\n"
+"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+"background-color:rgba(0,255,0,255);/*背景色*/\n"
+"}")
+        self.st6.setObjectName("st6")
+        self.st7 = QtWidgets.QPushButton(self.centralwidget)
+        self.st7.setGeometry(QtCore.QRect(430, 510, 40, 40))
+        self.st7.setStyleSheet("\n"
+"QPushButton{/*默认显示*/\n"
+"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+"background-color:rgba(0,255,0,255);/*背景色*/\n"
+"}")
+        self.st7.setObjectName("st7")
+        self.st8 = QtWidgets.QPushButton(self.centralwidget)
+        self.st8.setGeometry(QtCore.QRect(480, 510, 40, 40))
+        self.st8.setStyleSheet("\n"
+"QPushButton{/*默认显示*/\n"
+"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+"background-color:rgba(0,255,0,255);/*背景色*/\n"
+"}")
+        self.st8.setObjectName("st8")
+        self.con = QtWidgets.QPushButton(self.centralwidget)
+        self.con.setGeometry(QtCore.QRect(70, 510, 40, 40))
+        self.con.setStyleSheet("\n"
+"QPushButton{/*默认显示*/\n"
+"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+"background-color:rgba(0,255,255,255);/*背景色*/\n"
+"}")
+        self.con.setObjectName("con")
+        self.bus = QtWidgets.QPushButton(self.centralwidget)
+        self.bus.setGeometry(QtCore.QRect(20, 510, 40, 40))
+        self.bus.setStyleSheet("\n"
+"QPushButton{/*默认显示*/\n"
+"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+"background-color:rgba(255,0,0,255);/*背景色*/\n"
+"}")
+        self.bus.setObjectName("bus")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
@@ -287,4 +380,15 @@ class Ui_MainWindow(object):
         self.label_15.setText(_translate("MainWindow", "——"))
         self.label_12.setText(_translate("MainWindow", "TEMP_position_display"))
         self.label_14.setText(_translate("MainWindow", "——"))
-        self.groupBox.setTitle(_translate("MainWindow", "GroupBox"))
+        self.st9.setText(_translate("MainWindow", "st9"))
+        self.st1.setText(_translate("MainWindow", "st1"))
+        self.st10.setText(_translate("MainWindow", "st10"))
+        self.st2.setText(_translate("MainWindow", "st2"))
+        self.st3.setText(_translate("MainWindow", "st3"))
+        self.st4.setText(_translate("MainWindow", "st4"))
+        self.st5.setText(_translate("MainWindow", "st5"))
+        self.st6.setText(_translate("MainWindow", "st6"))
+        self.st7.setText(_translate("MainWindow", "st7"))
+        self.st8.setText(_translate("MainWindow", "st8"))
+        self.con.setText(_translate("MainWindow", "con"))
+        self.bus.setText(_translate("MainWindow", "bus"))

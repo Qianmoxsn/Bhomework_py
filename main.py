@@ -17,7 +17,9 @@ from PyQt5 import QtWidgets
 #from pyqtui import Ui_MainWindow
 
 import json
-
+from PyQt5.QtWidgets import QApplication,QMainWindow,QWidget,QVBoxLayout
+from PyQt5.QtGui import QPainter,QColor,QFont,QPen,QPolygon,QImage
+from PyQt5.QtCore import Qt,QRect,QPoint
 import numpy as np
 import logging
 import os
@@ -69,28 +71,7 @@ if __name__ == '__main__':
         elif code == -1:
             # funcs.OP_C_E()
             # exit(-1)
-            class MyFigure(FigureCanvas):
-                def __init__(self, width, height, dpi):
-                    self.fig = Figure(figsize=(width, height), dpi=dpi)  # 创建一个Figure
-                    super(MyFigure, self).__init__(self.fig)  # 在父类中激活Figure窗口
-                    self.axes = self.fig.add_subplot(111)  # 调用Figure下面的add_subplot方法
 
-
-            class Window(QMainWindow, gui.Ui_MainWindow):
-                def __init__(self, parent=None):
-                    super(Window, self).__init__(parent)
-                    self.setupUi(self)
-                    self.test = MyFigure(width=3, height=2, dpi=100)
-                    self.gridlayout = QGridLayout(self.groupBox)  # 继承容器groupBox
-                    self.gridlayout.addWidget(self.test, 0, 1)
-
-                def plot(self):
-                    x = [5.7735, 2.8868, -2.8868, -5.7735, -2.8868, 2.8868]
-                    y = [0, -5, -5, 0, 5, 5]
-                    self.test.axes.scatter(x, y)
-                    self.test.fig.suptitle("hello word")  # 设置总标题
-                    self.test.axes.set_xlabel('X_Label')  # 设置x轴标题
-                    self.test.axes.set_ylabel('Y_Label')  # 设置Y轴标题
 
             # gui
             app = QApplication(sys.argv)
@@ -105,8 +86,8 @@ if __name__ == '__main__':
             ui.config(strategy=gl_VAR.g_stg, distance=str(gl_VAR.g_dis), stations=str(gl_VAR.g_totsta))
             # 设定总时间（显示）
             ui.set_GT(GT=str(gl_VAR.g_time))
+            #计算坐标
+            ui.zuobiao(gl_VAR.g_totsta)
             # 开启页面
             MainWindow.show()
-            ui = Window()
-            ui.show()
             sys.exit(app.exec_())

@@ -471,17 +471,244 @@
      </item>
     </layout>
    </widget>
-   <widget class="QGroupBox" name="groupBox">
+   <widget class="QPushButton" name="st9">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>80</y>
-      <width>451</width>
-      <height>431</height>
+      <x>530</x>
+      <y>510</y>
+      <width>40</width>
+      <height>40</height>
      </rect>
     </property>
-    <property name="title">
-     <string>GroupBox</string>
+    <property name="styleSheet">
+     <string notr="true">
+QPushButton{/*默认显示*/
+border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/
+background-color:rgba(0,255,0,255);/*背景色*/
+}</string>
+    </property>
+    <property name="text">
+     <string>st9</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="st1">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>510</y>
+      <width>40</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QPushButton{/*默认显示*/
+border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/
+background-color:rgba(0,255,0,255);/*背景色*/
+}</string>
+    </property>
+    <property name="text">
+     <string>st1</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="st10">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>510</y>
+      <width>40</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QPushButton{/*默认显示*/
+border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/
+background-color:rgba(0,255,0,255);/*背景色*/
+}</string>
+    </property>
+    <property name="text">
+     <string>st10</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="st2">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>510</y>
+      <width>40</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QPushButton{/*默认显示*/
+border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/
+background-color:rgba(0,255,0,255);/*背景色*/
+}</string>
+    </property>
+    <property name="text">
+     <string>st2</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="st3">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>510</y>
+      <width>40</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QPushButton{/*默认显示*/
+border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/
+background-color:rgba(0,255,0,255);/*背景色*/
+}</string>
+    </property>
+    <property name="text">
+     <string>st3</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="st4">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>510</y>
+      <width>40</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QPushButton{/*默认显示*/
+border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/
+background-color:rgba(0,255,0,255);/*背景色*/
+}</string>
+    </property>
+    <property name="text">
+     <string>st4</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="st5">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>510</y>
+      <width>40</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QPushButton{/*默认显示*/
+border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/
+background-color:rgba(0,255,0,255);/*背景色*/
+}</string>
+    </property>
+    <property name="text">
+     <string>st5</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="st6">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>510</y>
+      <width>40</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QPushButton{/*默认显示*/
+border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/
+background-color:rgba(0,255,0,255);/*背景色*/
+}</string>
+    </property>
+    <property name="text">
+     <string>st6</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="st7">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>510</y>
+      <width>40</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QPushButton{/*默认显示*/
+border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/
+background-color:rgba(0,255,0,255);/*背景色*/
+}</string>
+    </property>
+    <property name="text">
+     <string>st7</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="st8">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>510</y>
+      <width>40</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QPushButton{/*默认显示*/
+border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/
+background-color:rgba(0,255,0,255);/*背景色*/
+}</string>
+    </property>
+    <property name="text">
+     <string>st8</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="con">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>510</y>
+      <width>40</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QPushButton{/*默认显示*/
+border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/
+background-color:rgba(0,255,255,255);/*背景色*/
+}</string>
+    </property>
+    <property name="text">
+     <string>con</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bus">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>510</y>
+      <width>40</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QPushButton{/*默认显示*/
+border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/
+background-color:rgba(255,0,0,255);/*背景色*/
+}</string>
+    </property>
+    <property name="text">
+     <string>bus</string>
     </property>
    </widget>
   </widget>
