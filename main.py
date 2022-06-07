@@ -5,6 +5,29 @@ import data
 import gl_VAR
 import GUI.test1 as gui
 
+
+import matplotlib
+
+matplotlib.use("Qt5Agg")  # 声明使用QT5
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
+from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QGridLayout
+from PyQt5.QtGui import QIcon
+from PyQt5 import QtWidgets
+#from pyqtui import Ui_MainWindow
+
+import json
+from PyQt5.QtWidgets import QApplication,QMainWindow,QWidget,QVBoxLayout
+from PyQt5.QtGui import QPainter,QColor,QFont,QPen,QPolygon,QImage
+from PyQt5.QtCore import Qt,QRect,QPoint
+import numpy as np
+import logging
+import os
+
+import time
+
+
 if __name__ == '__main__':
 
     # 输入配置参数并配置
@@ -45,16 +68,18 @@ if __name__ == '__main__':
             # 执行TIMR函数
             funcs.TIMR()
             # 执行OP_C函数
-            funcs.OP_C(data.BUS_CON, data.STA_CON)
+            # funcs.OP_C(data.BUS_CON, data.STA_CON)
             # 执行OP_C_F函数
             funcs.OP_C_F(data.BUS_CON)
         elif code == -1:
             # funcs.OP_C_E()
             # exit(-1)
 
+
             # gui
             app = QApplication(sys.argv)
             MainWindow = QMainWindow()
+            #app.setWindowIcon(QIcon('D:/Python/2021/pyqt/test/b.ico'))
             ui = gui.Ui_MainWindow()
             # 初始化页面控件
             ui.setupUi(MainWindow)
@@ -64,6 +89,8 @@ if __name__ == '__main__':
             ui.config(strategy=gl_VAR.g_stg, distance=str(gl_VAR.g_dis), stations=str(gl_VAR.g_totsta))
             # 设定总时间（显示）
             ui.set_GT(GT=str(gl_VAR.g_time))
+            #计算坐标
+            ui.zuobiao(gl_VAR.g_totsta)
             # 开启页面
             MainWindow.show()
             sys.exit(app.exec_())

@@ -16,7 +16,6 @@ def SET_CONFIG():
         tmplist[0] = tmplist[0].strip(' ')
         tmplist[1] = tmplist[1].strip(' ')
         tmplist[1] = tmplist[1].strip('\n')
-
         if tmplist[0] == 'TOTAL_STATION':
             nsta = int(tmplist[1])
         elif tmplist[0] == 'STRATEGY':
