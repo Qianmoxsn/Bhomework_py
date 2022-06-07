@@ -3,8 +3,8 @@
 # ------------------------------------------------
 # relocate IO stream
 # import sys
-# sys.stdin = open('input.txt', mode='r')
-# sys.stdout = open('output.txt', mode='w')
+# sys.stdin = open('input.txt', mode='r', encoding='utf-8')
+# sys.stdout = open('output.txt', mode='w', encoding='utf-8')
 # ------------------------------------------------
 g_totsta = 0
 g_stg = 0
@@ -13,7 +13,7 @@ g_time = 0
 SED_LST = []
 tmp_CMD = ()
 is_move = 0
-
+NEW_LST = []
 
 class CONFIG:
     TOTAL_STATION = None
@@ -65,6 +65,7 @@ def SET_CONFIG():
         if line[0] == '#':
             continue
         tmplist = line.split('=')
+        tmplist[0] = tmplist[0].strip()
         tmplist[1] = tmplist[1].strip()
         if tmplist[0] == 'TOTAL_STATION':
             nsta = int(tmplist[1])
@@ -83,6 +84,8 @@ def IP_C():
     codediction = {'end': -1, 'clock': 0, 'counterclockwise': 1, 'clockwise': 2, 'target': 3}
     # raw_code = input('->in> ')
     raw_code = input()
+    raw_code = raw_code.strip(' ')
+    raw_code = raw_code.strip('\t')
     if raw_code == '':
         return -2, instr
     if raw_code[0] == '#':
@@ -157,6 +160,8 @@ def ADD_SED(code, instr):
 
         # ‘SSTF’策略或‘SCAN’策略：
         elif g_stg == 'SSTF':
+            if (BUS_CON.station+1== instr):
+                NEW_LST.append((code, instr))
             # 找出根指令
             i = 0
             while SED_LST[i][0] > 10:
@@ -205,37 +210,67 @@ def ADD_SED(code, instr):
             else:
                 SED_LST.append((code, instr))
         elif g_stg == 'SCAN':
-            # 找出根指令
-            i = 0
-            while SED_LST[i][0] > 10:
-                i += 1
-            base_cmd = SED_LST[i]
-            basei = i
-            # 输入指令是“顺便”指令：
-            if DIS_DIFF(BUS_CON.station + 1, instr) < DIS_DIFF(BUS_CON.station + 1, base_cmd[1]) and \
-                    DIS_DIFF(instr, base_cmd[1]) < DIS_DIFF(BUS_CON.station + 1, base_cmd[1]):
-                code += 10
-                # 判断当前方向
-                dirc = JUG_DIR(index=basei)
-                inspos = 0
-                if inspos >= basei:
-                    pass
-                else:
-                    if dirc == -1:
-
-                        while (-g_totsta < 2 * (
-                                inspos - SED_LST[inspos + 1][1]) < 0 or
-                               g_totsta < 2 * (inspos - SED_LST[inspos + 1][1]) < 2 * g_totsta) \
-                                and inspos < basei:
-                            inspos += 1
+                if not tmp_CMD:
+                    # chawei
+                    SED_LST.append((code, instr))
+                    tmp_lst = []
+                    for i in range(len(SED_LST)):
+                        same_dirc = 0
+                        totaldis = g_totsta * g_dis
+                        if 0 <= (SED_LST[i][1] - (BUS_CON.station + 1)) * g_dis <= totaldis / 2 \
+                                or -totaldis <= (
+                                SED_LST[i][1] - (BUS_CON.station + 1)) * g_dis <= -totaldis / 2:
+                            dric = 1
+                        else:
+                            dric = -1
+                        dis = DIS_DIFF(SED_LST[i][1], BUS_CON.station + 1)
+                        if dric == BUS_CON.dric:
+                            same_dirc = 1
+                        tmp_lst.append((i, dric, dis, same_dirc))
+                    tmp_lst.sort(key=lambda x: (x[2], -x[1]))
+                    # 找出最短时间指令索引
+                    if not tmp_lst:
+                        return
                     else:
-                        while (-2 * g_totsta < 2 * (
-                                inspos - SED_LST[inspos + 1][1]) < -g_totsta or 0 < 2 * (
-                                       inspos - SED_LST[inspos + 1][1]) < g_totsta) and inspos < basei:
-                            inspos += 1
-                SED_LST.insert(inspos, (code, instr))
-            else:
-                SED_LST.append((code, instr))
+                        short_index = tmp_lst[0][0]
+                        # 将最短时间指令插入计划表首位
+                        SED_LST.insert(0, SED_LST[short_index])
+                        SED_LST.pop(short_index + 1)
+                else:
+
+                    # 找出根指令
+                    i = 0
+                    while SED_LST[i][0] > 10:
+                        i += 1
+                    base_cmd = SED_LST[i]
+                    basei = i
+                    # 输入指令是“顺便”指令：
+                    if DIS_DIFF(BUS_CON.station + 1, instr) < DIS_DIFF(BUS_CON.station + 1, base_cmd[1]) and \
+                            DIS_DIFF(instr, base_cmd[1]) < DIS_DIFF(BUS_CON.station + 1, base_cmd[1]):
+                        code += 10
+                        # 判断当前方向
+                        dirc = JUG_DIR(index=basei)
+                        inspos = 0
+                        if inspos >= basei:
+                            pass
+                        else:
+                            if dirc == -1:
+
+                                while (-g_totsta < 2 * (
+                                        inspos - SED_LST[inspos + 1][1]) < 0 or
+                                       g_totsta < 2 * (
+                                               inspos - SED_LST[inspos + 1][1]) < 2 * g_totsta) \
+                                        and inspos < basei:
+                                    inspos += 1
+                            else:
+                                while (-2 * g_totsta < 2 * (
+                                        inspos - SED_LST[inspos + 1][1]) < -g_totsta or 0 < 2 * (
+                                               inspos - SED_LST[inspos + 1][
+                                           1]) < g_totsta) and inspos < basei:
+                                    inspos += 1
+                        SED_LST.insert(inspos, (code, instr))
+                    else:
+                        SED_LST.append((code, instr))
             # 输入指令不是“顺便”指令：插尾
         else:
             SED_LST.append((code, instr))
@@ -411,6 +446,20 @@ def DEL_CON_SSTF(num):
     templststr = list(BUS_CON.dest)
     templststr[num - 1] = '0'
     BUS_CON.dest = ''.join(templststr)
+    # 加入新表状态
+    if NEW_LST:
+        if NEW_LST[0][0] == 1:
+            templststr = list(STA_CON.ccw_station)
+            templststr[num - 1] = '1'
+            STA_CON.ccw_station = ''.join(templststr)
+        elif NEW_LST[0][0] == 2:
+            templststr = list(STA_CON.cw_station)
+            templststr[num - 1] = '1'
+            STA_CON.cw_station = ''.join(templststr)
+        elif NEW_LST[0][0] == 3:
+            templststr = list(BUS_CON.dest)
+            templststr[num - 1] = '1'
+            BUS_CON.dest = ''.join(templststr)
 
 
 # SCAN策略，根指令
@@ -492,6 +541,9 @@ if __name__ == '__main__':
             # 执行BUS_MOV函数
             if BUS_MOV() == 'ST_BY':
                 pass
+            if NEW_LST:
+                SED_LST.append(NEW_LST[0])
+                NEW_LST.pop(0)
             # 执行TIMR函数
             TIMR()
             # 执行OP_C函数

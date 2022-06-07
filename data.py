@@ -1,7 +1,8 @@
 SED_LST = []
+SCAN_BUFF = []
 tmp_CMD = ()
 is_move = 0
-
+NEW_LST = []
 class CONFIG:
     TOTAL_STATION = None
     STRATEGY = None
