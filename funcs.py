@@ -20,7 +20,7 @@ def SET_CONFIG():
             nsta = int(tmplist[1])
         elif tmplist[0] == 'STRATEGY':
             stg = tmplist[1]
-            #stg = stg.strip('\n')
+            # stg = stg.strip('\n')
         elif tmplist[0] == 'DISTANCE':
             dis = int(tmplist[1])
     confile.close()
@@ -71,6 +71,13 @@ def OP_C(bus_condition, sta_condition):
 def OP_C_E():
     print("end")
     return 0
+
+
+# 结尾文件输出
+def OP_C_E_F():
+    f = open('GUI/outfile.txt', 'a')
+    f.write("end\n")
+    f.close()
 
 
 # 文件输出（动画）
@@ -128,7 +135,7 @@ def ADD_SED(code, instr):
 
         # ‘SSTF’策略或‘SCAN’策略：
         elif gl_VAR.g_stg == 'SSTF':
-            if (data.BUS_CON.station+1== instr):
+            if (data.BUS_CON.station + 1 == instr):
                 data.NEW_LST.append((code, instr))
             else:
                 # 找出根指令
@@ -165,13 +172,15 @@ def ADD_SED(code, instr):
 
                                 while (-gl_VAR.g_totsta < 2 * (
                                         inspos - data.SED_LST[inspos + 1][1]) < 0 or
-                                       gl_VAR.g_totsta < 2 * (inspos - data.SED_LST[inspos + 1][1]) < 2 * gl_VAR.g_totsta) \
+                                       gl_VAR.g_totsta < 2 * (
+                                               inspos - data.SED_LST[inspos + 1][1]) < 2 * gl_VAR.g_totsta) \
                                         and inspos < basei:
                                     inspos += 1
                             else:
                                 while (-2 * gl_VAR.g_totsta < 2 * (
                                         inspos - data.SED_LST[inspos + 1][1]) < -gl_VAR.g_totsta or 0 < 2 * (
-                                               inspos - data.SED_LST[inspos + 1][1]) < gl_VAR.g_totsta) and inspos < basei:
+                                               inspos - data.SED_LST[inspos + 1][
+                                           1]) < gl_VAR.g_totsta) and inspos < basei:
                                     inspos += 1
                         data.SED_LST.insert(inspos, (code, instr))
                     else:
@@ -198,7 +207,7 @@ def ADD_SED(code, instr):
                     if dric == data.BUS_CON.dric:
                         same_dirc = 1
                     tmp_lst.append((i, dric, dis, same_dirc))
-                tmp_lst.sort(key=lambda x: (x[2],-x[1]))
+                tmp_lst.sort(key=lambda x: (x[2], -x[1]))
                 # 找出最短时间指令索引
                 if not tmp_lst:
                     return

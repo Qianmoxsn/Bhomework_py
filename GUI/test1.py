@@ -13,7 +13,7 @@ from PyQt5.QtCore import *
 import numpy as np
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import QPropertyAnimation
-#from PyQt5.QtCore import Qrect
+# from PyQt5.QtCore import Qrect
 import data
 import gl_VAR
 
@@ -265,98 +265,98 @@ class Ui_MainWindow(object):
         self.st9 = QtWidgets.QPushButton(self.centralwidget)
         self.st9.setGeometry(QtCore.QRect(530, 510, 40, 40))
         self.st9.setStyleSheet("\n"
-"QPushButton{/*默认显示*/\n"
-"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-"background-color:rgba(0,255,0,255);/*背景色*/\n"
-"}")
+                               "QPushButton{/*默认显示*/\n"
+                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+                               "background-color:rgba(0,255,0,255);/*背景色*/\n"
+                               "}")
         self.st9.setObjectName("st9")
         self.st1 = QtWidgets.QPushButton(self.centralwidget)
         self.st1.setGeometry(QtCore.QRect(130, 510, 40, 40))
         self.st1.setStyleSheet("\n"
-"QPushButton{/*默认显示*/\n"
-"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-"background-color:rgba(0,255,0,255);/*背景色*/\n"
-"}")
+                               "QPushButton{/*默认显示*/\n"
+                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+                               "background-color:rgba(0,255,0,255);/*背景色*/\n"
+                               "}")
         self.st1.setObjectName("st1")
         self.st10 = QtWidgets.QPushButton(self.centralwidget)
         self.st10.setGeometry(QtCore.QRect(580, 510, 40, 40))
         self.st10.setStyleSheet("\n"
-"QPushButton{/*默认显示*/\n"
-"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-"background-color:rgba(0,255,0,255);/*背景色*/\n"
-"}")
+                                "QPushButton{/*默认显示*/\n"
+                                "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+                                "background-color:rgba(0,255,0,255);/*背景色*/\n"
+                                "}")
         self.st10.setObjectName("st10")
         self.st2 = QtWidgets.QPushButton(self.centralwidget)
         self.st2.setGeometry(QtCore.QRect(180, 510, 40, 40))
         self.st2.setStyleSheet("\n"
-"QPushButton{/*默认显示*/\n"
-"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-"background-color:rgba(0,255,0,255);/*背景色*/\n"
-"}")
+                               "QPushButton{/*默认显示*/\n"
+                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+                               "background-color:rgba(0,255,0,255);/*背景色*/\n"
+                               "}")
         self.st2.setObjectName("st2")
         self.st3 = QtWidgets.QPushButton(self.centralwidget)
         self.st3.setGeometry(QtCore.QRect(230, 510, 40, 40))
         self.st3.setStyleSheet("\n"
-"QPushButton{/*默认显示*/\n"
-"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-"background-color:rgba(0,255,0,255);/*背景色*/\n"
-"}")
+                               "QPushButton{/*默认显示*/\n"
+                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+                               "background-color:rgba(0,255,0,255);/*背景色*/\n"
+                               "}")
         self.st3.setObjectName("st3")
         self.st4 = QtWidgets.QPushButton(self.centralwidget)
         self.st4.setGeometry(QtCore.QRect(280, 510, 40, 40))
         self.st4.setStyleSheet("\n"
-"QPushButton{/*默认显示*/\n"
-"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-"background-color:rgba(0,255,0,255);/*背景色*/\n"
-"}")
+                               "QPushButton{/*默认显示*/\n"
+                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+                               "background-color:rgba(0,255,0,255);/*背景色*/\n"
+                               "}")
         self.st4.setObjectName("st4")
         self.st5 = QtWidgets.QPushButton(self.centralwidget)
         self.st5.setGeometry(QtCore.QRect(330, 510, 40, 40))
         self.st5.setStyleSheet("\n"
-"QPushButton{/*默认显示*/\n"
-"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-"background-color:rgba(0,255,0,255);/*背景色*/\n"
-"}")
+                               "QPushButton{/*默认显示*/\n"
+                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+                               "background-color:rgba(0,255,0,255);/*背景色*/\n"
+                               "}")
         self.st5.setObjectName("st5")
         self.st6 = QtWidgets.QPushButton(self.centralwidget)
         self.st6.setGeometry(QtCore.QRect(380, 510, 40, 40))
         self.st6.setStyleSheet("\n"
-"QPushButton{/*默认显示*/\n"
-"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-"background-color:rgba(0,255,0,255);/*背景色*/\n"
-"}")
+                               "QPushButton{/*默认显示*/\n"
+                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+                               "background-color:rgba(0,255,0,255);/*背景色*/\n"
+                               "}")
         self.st6.setObjectName("st6")
         self.st7 = QtWidgets.QPushButton(self.centralwidget)
         self.st7.setGeometry(QtCore.QRect(430, 510, 40, 40))
         self.st7.setStyleSheet("\n"
-"QPushButton{/*默认显示*/\n"
-"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-"background-color:rgba(0,255,0,255);/*背景色*/\n"
-"}")
+                               "QPushButton{/*默认显示*/\n"
+                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+                               "background-color:rgba(0,255,0,255);/*背景色*/\n"
+                               "}")
         self.st7.setObjectName("st7")
         self.st8 = QtWidgets.QPushButton(self.centralwidget)
         self.st8.setGeometry(QtCore.QRect(480, 510, 40, 40))
         self.st8.setStyleSheet("\n"
-"QPushButton{/*默认显示*/\n"
-"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-"background-color:rgba(0,255,0,255);/*背景色*/\n"
-"}")
+                               "QPushButton{/*默认显示*/\n"
+                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+                               "background-color:rgba(0,255,0,255);/*背景色*/\n"
+                               "}")
         self.st8.setObjectName("st8")
         self.con = QtWidgets.QPushButton(self.centralwidget)
         self.con.setGeometry(QtCore.QRect(70, 510, 40, 40))
         self.con.setStyleSheet("\n"
-"QPushButton{/*默认显示*/\n"
-"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-"background-color:rgba(0,255,255,255);/*背景色*/\n"
-"}")
+                               "QPushButton{/*默认显示*/\n"
+                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+                               "background-color:rgba(0,255,255,255);/*背景色*/\n"
+                               "}")
         self.con.setObjectName("con")
         self.bus = QtWidgets.QPushButton(self.centralwidget)
         self.bus.setGeometry(QtCore.QRect(60, 260, 40, 40))
         self.bus.setStyleSheet("\n"
-"QPushButton{/*默认显示*/\n"
-"border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-"background-color:rgba(255,0,0,255);/*背景色*/\n"
-"}")
+                               "QPushButton{/*默认显示*/\n"
+                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
+                               "background-color:rgba(255,0,0,255);/*背景色*/\n"
+                               "}")
         self.bus.setObjectName("bus")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -405,8 +405,6 @@ class Ui_MainWindow(object):
         self.con.setText(_translate("MainWindow", "con"))
         self.bus.setText(_translate("MainWindow", "bus"))
 
-
-
         # signals:
         self.next_button.clicked.connect(self.read_file)
         self.auto_button.clicked.connect(self.autoplay)
@@ -415,36 +413,43 @@ class Ui_MainWindow(object):
     # 读输出文件（outfile.txt）,解析，发送信号
     def read_file(self):
         global f
-
         raw_time = f.readline()
         # 判断进程结束（有bug）
-        if raw_time == EOFError:
+        if raw_time == 'end\n':
+            self.status_label.setText("调度结束")
+            self.next_button.clicked.disconnect()
+            self.auto_button.clicked.disconnect()
             self.next_button.close()
             self.auto_button.close()
-        raw_time = raw_time.split(':')[1]
+        else:
+            raw_time = raw_time.split(':')[1]
 
-        # 更新运行时间
-        self.time_show(raw_time)
-        # 更新进度条
-        self.display_progressbar(value=int(raw_time))
+            # 更新运行时间
+            self.time_show(raw_time)
+            # 更新进度条
+            self.display_progressbar(value=int(raw_time))
 
-        # 更新车辆位置
-        raw_pos = f.readline()
-        raw_pos = raw_pos.split(':')[1]
-        self.test_postionshow(raw_pos)
+            # 更新车辆位置
+            raw_pos = f.readline()
+            raw_pos = raw_pos.split(':')[1]
+            QApplication.processEvents()
+            self.test_postionshow(raw_pos)
+            QApplication.processEvents()
 
-        # 更新当前指令
-        raw_cmd = f.readline()
-        raw_cmd = raw_cmd.split(':')[1]
-        self.test_cmdshow(raw_cmd)
+            # 更新当前指令
+            raw_cmd = f.readline()
+            raw_cmd = raw_cmd.split(':')[1]
+            QApplication.processEvents()
+            self.test_cmdshow(raw_cmd)
+            QApplication.processEvents()
 
     # 自动播放选项
     def autoplay(self):
-        suspend_sec = 5
         while self.auto_button.isChecked():
             self.next_button.click()
-            QApplication.processEvents()
-            time.sleep(suspend_sec)
+            for i in range(500):
+                time.sleep(0.001)
+                QApplication.processEvents()
 
     # 绘制路线图背景（暂无）
     def backdraw(self):
@@ -486,7 +491,8 @@ class Ui_MainWindow(object):
             self.status_label.setText("运行")
             self.con.show()
             self.con_Anim = QPropertyAnimation(self.con, b"geometry")
-            self.con_Anim.setEndValue(QtCore.QRect(data.x[(con-1)*gl_VAR.g_dis], data.y[(con-1)*gl_VAR.g_dis], 40, 40))
+            self.con_Anim.setEndValue(
+                QtCore.QRect(data.x[(con - 1) * gl_VAR.g_dis], data.y[(con - 1) * gl_VAR.g_dis], 40, 40))
             self.con_Anim.setDuration(1)
             self.con_Anim.start()
 
@@ -498,20 +504,14 @@ class Ui_MainWindow(object):
     def display_progressbar(self, value):
         self.progressBar.setValue(value)
 
-    #圆上坐标计算
+    # 圆上坐标计算
     def zuobiao(self, totsta):
         totaldis = gl_VAR.g_totsta * gl_VAR.g_dis
         a = 260
         b = 260
         r = 200
-        #data.theta = {}
-        #x = {}
-        #y = {}
-        #data.theta[0] = 0
-        #data.x[0] = 0
-        #data.y[0] = 0
         for i in range(totaldis):
-            data.theta[i] = 2*(i)*np.pi / totaldis
+            data.theta[i] = 2 * i * np.pi / totaldis
             data.x[i] = a - r * np.cos(data.theta[i])
             data.y[i] = b - r * np.sin(data.theta[i])
         if totsta >= 1:
@@ -530,78 +530,78 @@ class Ui_MainWindow(object):
             self.st2.hide()
         if totsta >= 3:
             self.st3_Anim = QPropertyAnimation(self.st3, b"geometry")
-            self.st3_Anim.setEndValue(QtCore.QRect(data.x[2*gl_VAR.g_dis], data.y[2*gl_VAR.g_dis], 40, 40))
+            self.st3_Anim.setEndValue(QtCore.QRect(data.x[2 * gl_VAR.g_dis], data.y[2 * gl_VAR.g_dis], 40, 40))
             self.st3_Anim.setDuration(3)
             self.st3_Anim.start()
         else:
             self.st3.hide()
         if totsta >= 4:
             self.st4_Anim = QPropertyAnimation(self.st4, b"geometry")
-            self.st4_Anim.setEndValue(QtCore.QRect(data.x[3*gl_VAR.g_dis], data.y[3*gl_VAR.g_dis], 40, 40))
+            self.st4_Anim.setEndValue(QtCore.QRect(data.x[3 * gl_VAR.g_dis], data.y[3 * gl_VAR.g_dis], 40, 40))
             self.st4_Anim.setDuration(3)
             self.st4_Anim.start()
         else:
             self.st4.hide()
         if totsta >= 5:
             self.st5_Anim = QPropertyAnimation(self.st5, b"geometry")
-            self.st5_Anim.setEndValue(QtCore.QRect(data.x[4*gl_VAR.g_dis], data.y[4*gl_VAR.g_dis], 40, 40))
+            self.st5_Anim.setEndValue(QtCore.QRect(data.x[4 * gl_VAR.g_dis], data.y[4 * gl_VAR.g_dis], 40, 40))
             self.st5_Anim.setDuration(3)
             self.st5_Anim.start()
         else:
             self.st5.hide()
         if totsta >= 6:
             self.st6_Anim = QPropertyAnimation(self.st6, b"geometry")
-            self.st6_Anim.setEndValue(QtCore.QRect(data.x[5*gl_VAR.g_dis], data.y[5*gl_VAR.g_dis], 40, 40))
+            self.st6_Anim.setEndValue(QtCore.QRect(data.x[5 * gl_VAR.g_dis], data.y[5 * gl_VAR.g_dis], 40, 40))
             self.st6_Anim.setDuration(3)
             self.st6_Anim.start()
         else:
             self.st6.hide()
-        if totsta >=7:
+        if totsta >= 7:
             self.st7_Anim = QPropertyAnimation(self.st7, b"geometry")
-            self.st7_Anim.setEndValue(QtCore.QRect(data.x[6*gl_VAR.g_dis], data.y[6*gl_VAR.g_dis], 40, 40))
+            self.st7_Anim.setEndValue(QtCore.QRect(data.x[6 * gl_VAR.g_dis], data.y[6 * gl_VAR.g_dis], 40, 40))
             self.st7_Anim.setDuration(3)
             self.st7_Anim.start()
         else:
             self.st7.hide()
         if totsta >= 8:
             self.st8_Anim = QPropertyAnimation(self.st8, b"geometry")
-            self.st8_Anim.setEndValue(QtCore.QRect(data.x[7*gl_VAR.g_dis], data.y[7*gl_VAR.g_dis], 40, 40))
+            self.st8_Anim.setEndValue(QtCore.QRect(data.x[7 * gl_VAR.g_dis], data.y[7 * gl_VAR.g_dis], 40, 40))
             self.st8_Anim.setDuration(3)
             self.st8_Anim.start()
         else:
             self.st8.hide()
         if totsta >= 9:
             self.st9_Anim = QPropertyAnimation(self.st9, b"geometry")
-            self.st9_Anim.setEndValue(QtCore.QRect(data.x[8*gl_VAR.g_dis], data.y[8*gl_VAR.g_dis], 40, 40))
+            self.st9_Anim.setEndValue(QtCore.QRect(data.x[8 * gl_VAR.g_dis], data.y[8 * gl_VAR.g_dis], 40, 40))
             self.st9_Anim.setDuration(3)
             self.st9_Anim.start()
         else:
             self.st9.hide()
         if totsta >= 10:
             self.st10_Anim = QPropertyAnimation(self.st10, b"geometry")
-            self.st10_Anim.setEndValue(QtCore.QRect(data.x[9*gl_VAR.g_dis], data.y[9*gl_VAR.g_dis], 40, 40))
+            self.st10_Anim.setEndValue(QtCore.QRect(data.x[9 * gl_VAR.g_dis], data.y[9 * gl_VAR.g_dis], 40, 40))
             self.st10_Anim.setDuration(3)
             self.st10_Anim.start()
         else:
             self.st10.hide()
 
-        #self.pani = QParallelAnimationGroup(self)  #创建并行动画组
+        # self.pani = QParallelAnimationGroup(self)  #创建并行动画组
         # 并行动画组就是组内的动画同时执行
-        #pani = QSequentialAnimationGroup(self)  # 创建串行动画组
+        # pani = QSequentialAnimationGroup(self)  # 创建串行动画组
         # 串行动画组就是组内动画按照顺序一个一个执行
-        #self.pani = pani
-        #self.pani.addAnimation(ani1)  # 往动画组里添加动画
+        # self.pani = pani
+        # self.pani.addAnimation(ani1)  # 往动画组里添加动画
         # pani.addPause(5000)  #添加暂停时间----并行动画没有这个指令
         # currentAnimation() -> QAbstractAnimation----并行动画没有这个指令
-        #self.pani.addAnimation(ani2)
-        #pani.insertAnimation(1, ani3)  # 插入动画
+        # self.pani.addAnimation(ani2)
+        # pani.insertAnimation(1, ani3)  # 插入动画
         # 参数1  序号
         # removeAnimation(QAbstractAnimation animation)    移除动画
         # animationAt(int index) -> QAbstractAnimation    获取动画
         # takeAnimation(int index) -> QAbstractAnimation   获取并移除
         # animationCount() -> int   动画个数
         # clear()    清空动画
-        #self.pani.start()  # 启动动画组
+        # self.pani.start()  # 启动动画组
 
         '''
         # move
