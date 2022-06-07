@@ -474,10 +474,10 @@ class Ui_MainWindow(object):
     # 显示位置（临时）
     def test_postionshow(self, pos):
         position = int(pos)
-        if position%3 != 0:
+        if position%gl_VAR.g_dis != 0:
             self.label_14.setText("路途中")
         else:
-            self.label_14.setText(str(int(position/3+1)))
+            self.label_14.setText(str(int(position/gl_VAR.g_dis+1)))
         self.bus_Anim = QPropertyAnimation(self.bus, b"geometry")
         #self.bus_Anim.setTransformOriginPoint(260, 260, 40, 40)
         #self.bus_Anim.setRotation(data.theta[position])
