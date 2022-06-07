@@ -373,7 +373,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.title_label.setText(_translate("MainWindow", "公交车调度系统动画演示界面（测试）"))
+        self.title_label.setText(_translate("MainWindow", "公交车调度系统动画演示界面"))
         self.title_label_2.setText(_translate("MainWindow", "运行时间："))
         self.next_button.setText(_translate("MainWindow", "NEXT"))
         self.auto_button.setText(_translate("MainWindow", "AutoRun"))
@@ -388,10 +388,10 @@ class Ui_MainWindow(object):
         self.status_label.setText(_translate("MainWindow", "准备就绪"))
         self.label_10.setText(_translate("MainWindow", "预计运行时间"))
         self.exp_label.setText(_translate("MainWindow", "--"))
-        self.label_13.setText(_translate("MainWindow", "TEMP_comand_display"))
-        self.label_15.setText(_translate("MainWindow", "——"))
-        self.label_12.setText(_translate("MainWindow", "TEMP_position_display"))
-        self.label_14.setText(_translate("MainWindow", "——"))
+        self.label_13.setText(_translate("MainWindow", "目标车站"))
+        self.label_15.setText(_translate("MainWindow", "无请求"))
+        self.label_12.setText(_translate("MainWindow", "车辆位置"))
+        self.label_14.setText(_translate("MainWindow", "1"))
         self.st9.setText(_translate("MainWindow", "st9"))
         self.st1.setText(_translate("MainWindow", "st1"))
         self.st10.setText(_translate("MainWindow", "st10"))
@@ -474,20 +474,28 @@ class Ui_MainWindow(object):
     # 显示位置（临时）
     def test_postionshow(self, pos):
         position = int(pos)
-        self.label_14.setText(pos)
+        if position%3 != 0:
+            self.label_14.setText("路途中")
+        else:
+            self.label_14.setText(str(int(position/3+1)))
         self.bus_Anim = QPropertyAnimation(self.bus, b"geometry")
+        #self.bus_Anim.setTransformOriginPoint(260, 260, 40, 40)
+        #self.bus_Anim.setRotation(data.theta[position])
         self.bus_Anim.setEndValue(QtCore.QRect(data.x[position], data.y[position], 40, 40))
+        self.bus_Anim.setEasingCurve(QtCore.QEasingCurve.InOutQuad)
         self.bus_Anim.setDuration(300)
         self.bus_Anim.start()
 
     # 显示指令（临时）
     def test_cmdshow(self, cmd):
-        self.label_15.setText(cmd)
+
         con = int(cmd)
         if con == -1:
             self.status_label.setText("停运")
             self.con.hide()
+            self.label_15.setText("无请求")
         else:
+            self.label_15.setText(cmd)
             self.status_label.setText("运行")
             self.con.show()
             self.con_Anim = QPropertyAnimation(self.con, b"geometry")
@@ -611,7 +619,7 @@ class Ui_MainWindow(object):
         # self.listView_Anim.setKeyValueAt(0.5,QtCore.QRect(200, 200, 40, 40))  #关键帧
         #
         # 
-        # self.listView_Anim.setEasingCurve(QtCore.QEasingCurve.OutCirc)  #特效
+        # self.listView_Anim.setEasingCurve(QtCore.QEasingCurve.InOutQuad)  #特效
         self.listView_Anim.setEndValue(QtCore.QRect(430, 290, 40, 40))  # 设置终止大小
         self.listView_Anim.start()  # 动画开始
         '''
