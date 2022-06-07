@@ -89,7 +89,7 @@ if __name__ == '__main__':
             ui.config(strategy=gl_VAR.g_stg, distance=str(gl_VAR.g_dis), stations=str(gl_VAR.g_totsta))
             # 设定总时间（显示）
             ui.set_GT(GT=str(gl_VAR.g_time))
-            #计算坐标
+            # 计算坐标
             ui.zuobiao(gl_VAR.g_totsta)
             # 开启页面
             MainWindow.show()

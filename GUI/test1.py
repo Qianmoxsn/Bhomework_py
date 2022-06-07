@@ -14,6 +14,7 @@ import numpy as np
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import QPropertyAnimation
 #from PyQt5.QtCore import Qrect
+import data
 import gl_VAR
 
 f = open('GUI/outfile.txt', 'r')
@@ -220,7 +221,7 @@ class Ui_MainWindow(object):
         self.exp_label.setObjectName("exp_label")
         self.gridLayout_2.addWidget(self.exp_label, 0, 1, 1, 1)
         self.progressBar = QtWidgets.QProgressBar(self.layoutWidget2)
-        self.progressBar.setProperty("value", 24)
+        self.progressBar.setProperty("value", 0)
         self.progressBar.setObjectName("progressBar")
         self.gridLayout_2.addWidget(self.progressBar, 1, 0, 1, 2)
         self.layoutWidget3 = QtWidgets.QWidget(self.centralwidget)
@@ -350,7 +351,7 @@ class Ui_MainWindow(object):
 "}")
         self.con.setObjectName("con")
         self.bus = QtWidgets.QPushButton(self.centralwidget)
-        self.bus.setGeometry(QtCore.QRect(20, 510, 40, 40))
+        self.bus.setGeometry(QtCore.QRect(60, 260, 40, 40))
         self.bus.setStyleSheet("\n"
 "QPushButton{/*默认显示*/\n"
 "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
@@ -384,7 +385,7 @@ class Ui_MainWindow(object):
         self.label_8.setText(_translate("MainWindow", "调度策略："))
         self.stratedy_lable.setText(_translate("MainWindow", "——"))
         self.label.setText(_translate("MainWindow", "运行状态："))
-        self.status_label.setText(_translate("MainWindow", "运行/停运"))
+        self.status_label.setText(_translate("MainWindow", "准备就绪"))
         self.label_10.setText(_translate("MainWindow", "预计运行时间"))
         self.exp_label.setText(_translate("MainWindow", "--"))
         self.label_13.setText(_translate("MainWindow", "TEMP_comand_display"))
@@ -409,7 +410,7 @@ class Ui_MainWindow(object):
         # signals:
         self.next_button.clicked.connect(self.read_file)
         self.auto_button.clicked.connect(self.autoplay)
-
+        self.con.hide()
 
     # 读输出文件（outfile.txt）,解析，发送信号
     def read_file(self):
@@ -418,8 +419,8 @@ class Ui_MainWindow(object):
         raw_time = f.readline()
         # 判断进程结束（有bug）
         if raw_time == EOFError:
-            self.next_button.disconnect()
-            self.auto_button.disconnect()
+            self.next_button.close()
+            self.auto_button.close()
         raw_time = raw_time.split(':')[1]
 
         # 更新运行时间
@@ -439,7 +440,7 @@ class Ui_MainWindow(object):
 
     # 自动播放选项
     def autoplay(self):
-        suspend_sec = 0.5
+        suspend_sec = 5
         while self.auto_button.isChecked():
             self.next_button.click()
             QApplication.processEvents()
@@ -467,11 +468,27 @@ class Ui_MainWindow(object):
 
     # 显示位置（临时）
     def test_postionshow(self, pos):
+        position = int(pos)
         self.label_14.setText(pos)
+        self.bus_Anim = QPropertyAnimation(self.bus, b"geometry")
+        self.bus_Anim.setEndValue(QtCore.QRect(data.x[position], data.y[position], 40, 40))
+        self.bus_Anim.setDuration(300)
+        self.bus_Anim.start()
 
     # 显示指令（临时）
     def test_cmdshow(self, cmd):
         self.label_15.setText(cmd)
+        con = int(cmd)
+        if con == -1:
+            self.status_label.setText("停运")
+            self.con.hide()
+        else:
+            self.status_label.setText("运行")
+            self.con.show()
+            self.con_Anim = QPropertyAnimation(self.con, b"geometry")
+            self.con_Anim.setEndValue(QtCore.QRect(data.x[(con-1)*gl_VAR.g_dis], data.y[(con-1)*gl_VAR.g_dis], 40, 40))
+            self.con_Anim.setDuration(1)
+            self.con_Anim.start()
 
     # 设定进度条最大值（总时间）
     def set_progressbar(self, value):
@@ -483,69 +500,90 @@ class Ui_MainWindow(object):
 
     #圆上坐标计算
     def zuobiao(self, totsta):
+        totaldis = gl_VAR.g_totsta * gl_VAR.g_dis
         a = 260
         b = 260
         r = 200
-        theta = {}
-        x = {}
-        y = {}
-        theta[0] = 0
-        x[0] = 0
-        y[0] = 0
-        for i in range(totsta):
-            theta[i+1] = 2*(i+1)*np.pi / totsta
-            x[i+1] = a + r * np.cos(theta[i+1])
-            y[i+1] = b + r * np.sin(theta[i+1])
+        #data.theta = {}
+        #x = {}
+        #y = {}
+        #data.theta[0] = 0
+        #data.x[0] = 0
+        #data.y[0] = 0
+        for i in range(totaldis):
+            data.theta[i] = 2*(i)*np.pi / totaldis
+            data.x[i] = a - r * np.cos(data.theta[i])
+            data.y[i] = b - r * np.sin(data.theta[i])
         if totsta >= 1:
             self.st1_Anim = QPropertyAnimation(self.st1, b"geometry")
-            self.st1_Anim.setEndValue(QtCore.QRect(x[1], y[1], 40, 40))
+            self.st1_Anim.setEndValue(QtCore.QRect(data.x[0], data.y[0], 40, 40))
             self.st1_Anim.setDuration(3)
             self.st1_Anim.start()
+        else:
+            self.st1.hide()
         if totsta >= 2:
             self.st2_Anim = QPropertyAnimation(self.st2, b"geometry")
-            self.st2_Anim.setEndValue(QtCore.QRect(x[2], y[2], 40, 40))
+            self.st2_Anim.setEndValue(QtCore.QRect(data.x[gl_VAR.g_dis], data.y[gl_VAR.g_dis], 40, 40))
             self.st2_Anim.setDuration(3)
             self.st2_Anim.start()
+        else:
+            self.st2.hide()
         if totsta >= 3:
             self.st3_Anim = QPropertyAnimation(self.st3, b"geometry")
-            self.st3_Anim.setEndValue(QtCore.QRect(x[3], y[3], 40, 40))
+            self.st3_Anim.setEndValue(QtCore.QRect(data.x[2*gl_VAR.g_dis], data.y[2*gl_VAR.g_dis], 40, 40))
             self.st3_Anim.setDuration(3)
             self.st3_Anim.start()
+        else:
+            self.st3.hide()
         if totsta >= 4:
             self.st4_Anim = QPropertyAnimation(self.st4, b"geometry")
-            self.st4_Anim.setEndValue(QtCore.QRect(x[4], y[4], 40, 40))
+            self.st4_Anim.setEndValue(QtCore.QRect(data.x[3*gl_VAR.g_dis], data.y[3*gl_VAR.g_dis], 40, 40))
             self.st4_Anim.setDuration(3)
             self.st4_Anim.start()
+        else:
+            self.st4.hide()
         if totsta >= 5:
             self.st5_Anim = QPropertyAnimation(self.st5, b"geometry")
-            self.st5_Anim.setEndValue(QtCore.QRect(x[5], y[5], 40, 40))
+            self.st5_Anim.setEndValue(QtCore.QRect(data.x[4*gl_VAR.g_dis], data.y[4*gl_VAR.g_dis], 40, 40))
             self.st5_Anim.setDuration(3)
             self.st5_Anim.start()
+        else:
+            self.st5.hide()
         if totsta >= 6:
             self.st6_Anim = QPropertyAnimation(self.st6, b"geometry")
-            self.st6_Anim.setEndValue(QtCore.QRect(x[6], y[6], 40, 40))
+            self.st6_Anim.setEndValue(QtCore.QRect(data.x[5*gl_VAR.g_dis], data.y[5*gl_VAR.g_dis], 40, 40))
             self.st6_Anim.setDuration(3)
             self.st6_Anim.start()
+        else:
+            self.st6.hide()
         if totsta >=7:
             self.st7_Anim = QPropertyAnimation(self.st7, b"geometry")
-            self.st7_Anim.setEndValue(QtCore.QRect(x[7], y[7], 40, 40))
+            self.st7_Anim.setEndValue(QtCore.QRect(data.x[6*gl_VAR.g_dis], data.y[6*gl_VAR.g_dis], 40, 40))
             self.st7_Anim.setDuration(3)
             self.st7_Anim.start()
+        else:
+            self.st7.hide()
         if totsta >= 8:
             self.st8_Anim = QPropertyAnimation(self.st8, b"geometry")
-            self.st8_Anim.setEndValue(QtCore.QRect(x[8], y[8], 40, 40))
+            self.st8_Anim.setEndValue(QtCore.QRect(data.x[7*gl_VAR.g_dis], data.y[7*gl_VAR.g_dis], 40, 40))
             self.st8_Anim.setDuration(3)
             self.st8_Anim.start()
+        else:
+            self.st8.hide()
         if totsta >= 9:
             self.st9_Anim = QPropertyAnimation(self.st9, b"geometry")
-            self.st9_Anim.setEndValue(QtCore.QRect(x[9], y[9], 40, 40))
+            self.st9_Anim.setEndValue(QtCore.QRect(data.x[8*gl_VAR.g_dis], data.y[8*gl_VAR.g_dis], 40, 40))
             self.st9_Anim.setDuration(3)
             self.st9_Anim.start()
+        else:
+            self.st9.hide()
         if totsta >= 10:
             self.st10_Anim = QPropertyAnimation(self.st10, b"geometry")
-            self.st10_Anim.setEndValue(QtCore.QRect(x[10], y[10], 40, 40))
+            self.st10_Anim.setEndValue(QtCore.QRect(data.x[9*gl_VAR.g_dis], data.y[9*gl_VAR.g_dis], 40, 40))
             self.st10_Anim.setDuration(3)
             self.st10_Anim.start()
+        else:
+            self.st10.hide()
 
         #self.pani = QParallelAnimationGroup(self)  #创建并行动画组
         # 并行动画组就是组内的动画同时执行
