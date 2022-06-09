@@ -18,7 +18,7 @@ from PyQt5.QtCore import QPropertyAnimation
 # from PyQt5.QtCore import Qrect
 import data
 import gl_VAR
-r
+
 
 f = open('GUI/outfile.txt', 'r')
 gl_time = 1
