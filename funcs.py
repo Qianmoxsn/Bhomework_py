@@ -79,7 +79,7 @@ def OP_C_E_F():
     f.write("end\n")
     f.close()
 
-
+    
 # 文件输出（动画）
 def OP_C_F(bus_condition):
     position = bus_condition.station * gl_VAR.g_dis + bus_condition.move

@@ -59,6 +59,7 @@ if __name__ == '__main__':
             app = QApplication(sys.argv)
             MainWindow = QMainWindow()
             #app.setWindowIcon(QIcon('D:/Python/2021/pyqt/test/b.ico'))
+
             ui = gui.Ui_MainWindow()
             # 初始化页面控件
             ui.setupUi(MainWindow)
