@@ -96,7 +96,7 @@
      <rect>
       <x>681</x>
       <y>476</y>
-      <width>101</width>
+      <width>104</width>
       <height>62</height>
      </rect>
     </property>
@@ -143,7 +143,7 @@
      <rect>
       <x>561</x>
       <y>100</y>
-      <width>221</width>
+      <width>225</width>
       <height>191</height>
      </rect>
     </property>
@@ -406,9 +406,21 @@
      <rect>
       <x>560</x>
       <y>400</y>
-      <width>221</width>
+      <width>239</width>
       <height>71</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>239</width>
+      <height>71</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>239</width>
+      <height>71</height>
+     </size>
     </property>
     <property name="font">
      <font>
@@ -417,8 +429,20 @@
      </font>
     </property>
     <layout class="QGridLayout" name="gridLayout_3">
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_13">
+     <item row="0" column="1" colspan="2">
+      <widget class="QLabel" name="label_14">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>31</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>31</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <family>等线</family>
@@ -426,12 +450,24 @@
         </font>
        </property>
        <property name="text">
-        <string>TEMP_comand_display</string>
+        <string>——</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1" colspan="2">
       <widget class="QLabel" name="label_15">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>31</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>31</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <family>等线</family>
@@ -440,11 +476,48 @@
        </property>
        <property name="text">
         <string>——</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_13">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>31</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>31</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>等线</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>车辆位置</string>
        </property>
       </widget>
      </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label_12">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>31</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>31</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <family>等线</family>
@@ -452,20 +525,7 @@
         </font>
        </property>
        <property name="text">
-        <string>TEMP_position_display</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1" colspan="2">
-      <widget class="QLabel" name="label_14">
-       <property name="font">
-        <font>
-         <family>等线</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>——</string>
+        <string>车辆位置</string>
        </property>
       </widget>
      </item>
@@ -718,7 +778,7 @@ background-color:rgba(255,0,0,255);/*背景色*/
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

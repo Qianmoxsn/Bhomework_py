@@ -262,101 +262,122 @@ class Ui_MainWindow(object):
         self.label_14.setFont(font)
         self.label_14.setObjectName("label_14")
         self.gridLayout_3.addWidget(self.label_14, 0, 1, 1, 2)
-        self.st9 = QtWidgets.QPushButton(self.centralwidget)
+        self.back = QtWidgets.QLabel(self.centralwidget)
+        self.back.setGeometry(QtCore.QRect(70, 70, 420, 420))
+        img_path = 'C:/Users/汪镕彬/Desktop/erer/无边圆环.png'
+        self.back.setStyleSheet("QLabel{\n"
+                               "background-image: url(\"%s\");\n"
+                               "background-position:center;\n"
+                               "background-repeat:no-repeat;\n"
+                               "}" % img_path)
+        self.back.setObjectName("back")
+        self.st9 = QtWidgets.QLabel(self.centralwidget)
         self.st9.setGeometry(QtCore.QRect(530, 510, 40, 40))
-        self.st9.setStyleSheet("\n"
-                               "QPushButton{/*默认显示*/\n"
-                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-                               "background-color:rgba(0,255,0,255);/*背景色*/\n"
-                               "}")
+        img_path = 'C:/Users/汪镕彬/Desktop/erer/站.png'
+        self.st9.setStyleSheet("QLabel{\n"
+                               "background-image: url(\"%s\");\n"
+                               "background-position:center;\n"
+                               "background-repeat:no-repeat;\n"
+                               "}" % img_path)
         self.st9.setObjectName("st9")
-        self.st1 = QtWidgets.QPushButton(self.centralwidget)
+        self.st1 = QtWidgets.QLabel(self.centralwidget)
+        img_path = 'C:/Users/汪镕彬/Desktop/erer/站.png'
+        self.st1.setStyleSheet("QLabel{\n"
+                             "background-image: url(\"%s\");\n"
+                             "background-position:center;\n"
+                             "background-repeat:no-repeat;\n"
+                             "}" % img_path)
         self.st1.setGeometry(QtCore.QRect(130, 510, 40, 40))
-        self.st1.setStyleSheet("\n"
-                               "QPushButton{/*默认显示*/\n"
-                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-                               "background-color:rgba(0,255,0,255);/*背景色*/\n"
-                               "}")
         self.st1.setObjectName("st1")
-        self.st10 = QtWidgets.QPushButton(self.centralwidget)
+        self.st10 = QtWidgets.QLabel(self.centralwidget)
         self.st10.setGeometry(QtCore.QRect(580, 510, 40, 40))
-        self.st10.setStyleSheet("\n"
-                                "QPushButton{/*默认显示*/\n"
-                                "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-                                "background-color:rgba(0,255,0,255);/*背景色*/\n"
-                                "}")
+        img_path = 'C:/Users/汪镕彬/Desktop/erer/站.png'
+        self.st10.setStyleSheet("QLabel{\n"
+                               "background-image: url(\"%s\");\n"
+                               "background-position:center;\n"
+                               "background-repeat:no-repeat;\n"
+                               "}" % img_path)
         self.st10.setObjectName("st10")
-        self.st2 = QtWidgets.QPushButton(self.centralwidget)
+        self.st2 = QtWidgets.QLabel(self.centralwidget)
         self.st2.setGeometry(QtCore.QRect(180, 510, 40, 40))
-        self.st2.setStyleSheet("\n"
-                               "QPushButton{/*默认显示*/\n"
-                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-                               "background-color:rgba(0,255,0,255);/*背景色*/\n"
-                               "}")
+        img_path = 'C:/Users/汪镕彬/Desktop/erer/站.png'
+        self.st2.setStyleSheet("QLabel{\n"
+                               "background-image: url(\"%s\");\n"
+                               "background-position:center;\n"
+                               "background-repeat:no-repeat;\n"
+                               "}" % img_path)
         self.st2.setObjectName("st2")
-        self.st3 = QtWidgets.QPushButton(self.centralwidget)
+        self.st3 = QtWidgets.QLabel(self.centralwidget)
         self.st3.setGeometry(QtCore.QRect(230, 510, 40, 40))
-        self.st3.setStyleSheet("\n"
-                               "QPushButton{/*默认显示*/\n"
-                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-                               "background-color:rgba(0,255,0,255);/*背景色*/\n"
-                               "}")
+        img_path = 'C:/Users/汪镕彬/Desktop/erer/站.png'
+        self.st3.setStyleSheet("QLabel{\n"
+                               "background-image: url(\"%s\");\n"
+                               "background-position:center;\n"
+                               "background-repeat:no-repeat;\n"
+                               "}" % img_path)
         self.st3.setObjectName("st3")
-        self.st4 = QtWidgets.QPushButton(self.centralwidget)
+        self.st4 = QtWidgets.QLabel(self.centralwidget)
         self.st4.setGeometry(QtCore.QRect(280, 510, 40, 40))
-        self.st4.setStyleSheet("\n"
-                               "QPushButton{/*默认显示*/\n"
-                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-                               "background-color:rgba(0,255,0,255);/*背景色*/\n"
-                               "}")
+        img_path = 'C:/Users/汪镕彬/Desktop/erer/站.png'
+        self.st4.setStyleSheet("QLabel{\n"
+                               "background-image: url(\"%s\");\n"
+                               "background-position:center;\n"
+                               "background-repeat:no-repeat;\n"
+                               "}" % img_path)
         self.st4.setObjectName("st4")
-        self.st5 = QtWidgets.QPushButton(self.centralwidget)
+        self.st5 = QtWidgets.QLabel(self.centralwidget)
         self.st5.setGeometry(QtCore.QRect(330, 510, 40, 40))
-        self.st5.setStyleSheet("\n"
-                               "QPushButton{/*默认显示*/\n"
-                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-                               "background-color:rgba(0,255,0,255);/*背景色*/\n"
-                               "}")
+        img_path = 'C:/Users/汪镕彬/Desktop/erer/站.png'
+        self.st5.setStyleSheet("QLabel{\n"
+                               "background-image: url(\"%s\");\n"
+                               "background-position:center;\n"
+                               "background-repeat:no-repeat;\n"
+                               "}" % img_path)
         self.st5.setObjectName("st5")
-        self.st6 = QtWidgets.QPushButton(self.centralwidget)
+        self.st6 = QtWidgets.QLabel(self.centralwidget)
         self.st6.setGeometry(QtCore.QRect(380, 510, 40, 40))
-        self.st6.setStyleSheet("\n"
-                               "QPushButton{/*默认显示*/\n"
-                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-                               "background-color:rgba(0,255,0,255);/*背景色*/\n"
-                               "}")
+        img_path = 'C:/Users/汪镕彬/Desktop/erer/站.png'
+        self.st6.setStyleSheet("QLabel{\n"
+                               "background-image: url(\"%s\");\n"
+                               "background-position:center;\n"
+                               "background-repeat:no-repeat;\n"
+                               "}" % img_path)
         self.st6.setObjectName("st6")
-        self.st7 = QtWidgets.QPushButton(self.centralwidget)
+        self.st7 = QtWidgets.QLabel(self.centralwidget)
         self.st7.setGeometry(QtCore.QRect(430, 510, 40, 40))
-        self.st7.setStyleSheet("\n"
-                               "QPushButton{/*默认显示*/\n"
-                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-                               "background-color:rgba(0,255,0,255);/*背景色*/\n"
-                               "}")
+        img_path = 'C:/Users/汪镕彬/Desktop/erer/站.png'
+        self.st7.setStyleSheet("QLabel{\n"
+                               "background-image: url(\"%s\");\n"
+                               "background-position:center;\n"
+                               "background-repeat:no-repeat;\n"
+                               "}" % img_path)
         self.st7.setObjectName("st7")
-        self.st8 = QtWidgets.QPushButton(self.centralwidget)
+        self.st8 = QtWidgets.QLabel(self.centralwidget)
         self.st8.setGeometry(QtCore.QRect(480, 510, 40, 40))
-        self.st8.setStyleSheet("\n"
-                               "QPushButton{/*默认显示*/\n"
-                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-                               "background-color:rgba(0,255,0,255);/*背景色*/\n"
-                               "}")
+        img_path = 'C:/Users/汪镕彬/Desktop/erer/站.png'
+        self.st8.setStyleSheet("QLabel{\n"
+                               "background-image: url(\"%s\");\n"
+                               "background-position:center;\n"
+                               "background-repeat:no-repeat;\n"
+                               "}" % img_path)
         self.st8.setObjectName("st8")
-        self.con = QtWidgets.QPushButton(self.centralwidget)
+        self.con = QtWidgets.QLabel(self.centralwidget)
         self.con.setGeometry(QtCore.QRect(70, 510, 40, 40))
-        self.con.setStyleSheet("\n"
-                               "QPushButton{/*默认显示*/\n"
-                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-                               "background-color:rgba(0,255,255,255);/*背景色*/\n"
-                               "}")
+        img_path = 'C:/Users/汪镕彬/Desktop/erer/到站.png'
+        self.con.setStyleSheet("QLabel{\n"
+                               "background-image: url(\"%s\");\n"
+                               "background-position:center;\n"
+                               "background-repeat:no-repeat;\n"
+                               "}" % img_path)
         self.con.setObjectName("con")
-        self.bus = QtWidgets.QPushButton(self.centralwidget)
-        self.bus.setGeometry(QtCore.QRect(60, 260, 40, 40))
-        self.bus.setStyleSheet("\n"
-                               "QPushButton{/*默认显示*/\n"
-                               "border-radius:20px;/*圆角弧度(为正方形边长一半时就是圆形)*/\n"
-                               "background-color:rgba(255,0,0,255);/*背景色*/\n"
-                               "}")
+        self.bus = QtWidgets.QLabel(self.centralwidget)
+        self.bus.setGeometry(QtCore.QRect(60, 260, 60, 40))
+        img_path = 'C:/Users/汪镕彬/Desktop/erer/试试看3.png'
+        self.bus.setStyleSheet("QLabel{\n"
+                               "background-image: url(\"%s\");\n"
+                               "background-position:center;\n"
+                               "background-repeat:no-repeat;\n"
+                               "}" % img_path)
         self.bus.setObjectName("bus")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -392,18 +413,18 @@ class Ui_MainWindow(object):
         self.label_15.setText(_translate("MainWindow", "无请求"))
         self.label_12.setText(_translate("MainWindow", "车辆位置"))
         self.label_14.setText(_translate("MainWindow", "1"))
-        self.st9.setText(_translate("MainWindow", "st9"))
-        self.st1.setText(_translate("MainWindow", "st1"))
-        self.st10.setText(_translate("MainWindow", "st10"))
-        self.st2.setText(_translate("MainWindow", "st2"))
-        self.st3.setText(_translate("MainWindow", "st3"))
-        self.st4.setText(_translate("MainWindow", "st4"))
-        self.st5.setText(_translate("MainWindow", "st5"))
-        self.st6.setText(_translate("MainWindow", "st6"))
-        self.st7.setText(_translate("MainWindow", "st7"))
-        self.st8.setText(_translate("MainWindow", "st8"))
-        self.con.setText(_translate("MainWindow", "con"))
-        self.bus.setText(_translate("MainWindow", "bus"))
+        #self.st9.setText(_translate("MainWindow", "st9"))
+        #self.st1.setText(_translate("MainWindow", "st1"))
+        #self.st10.setText(_translate("MainWindow", "st10"))
+        #self.st2.setText(_translate("MainWindow", "st2"))
+        #self.st3.setText(_translate("MainWindow", "st3"))
+        #self.st4.setText(_translate("MainWindow", "st4"))
+        #self.st5.setText(_translate("MainWindow", "st5"))
+        #self.st6.setText(_translate("MainWindow", "st6"))
+        #self.st7.setText(_translate("MainWindow", "st7"))
+        #self.st8.setText(_translate("MainWindow", "st8"))
+        #self.con.setText(_translate("MainWindow", "con"))
+        #self.bus.setText(_translate("MainWindow", "bus"))
 
         # signals:
         self.next_button.clicked.connect(self.read_file)
@@ -478,10 +499,15 @@ class Ui_MainWindow(object):
             self.label_14.setText("路途中")
         else:
             self.label_14.setText(str(int(position/gl_VAR.g_dis+1)))
-        self.bus_Anim = QPropertyAnimation(self.bus, b"geometry")
+        #QtCore, QtGui, QtWidgets
+        self.bus_Anim = QtGui.QGraphicsPixmapItem(scaledPixmap)
+        self.bus_Anim.setTransformOriginPoint(25, 27.5)  # 设置中心为旋转
+        self.bus_Anim = QPropertyAnimation(self.bus, b"rotation")
+        self.bus_Anim.setStartValue(QtCore.QRect(180, 1, 47, 30))
+        self.bus_Anim.setEndValue(QtCore.QRect(360, 1, 47, 30))
         #self.bus_Anim.setTransformOriginPoint(260, 260, 40, 40)
         #self.bus_Anim.setRotation(data.theta[position])
-        self.bus_Anim.setEndValue(QtCore.QRect(data.x[position], data.y[position], 40, 40))
+        #self.bus_Anim.setEndValue(QtCore.QRect(data.x[position], data.y[position], 47, 30))
         self.bus_Anim.setEasingCurve(QtCore.QEasingCurve.InOutQuad)
         self.bus_Anim.setDuration(300)
         self.bus_Anim.start()
@@ -495,7 +521,7 @@ class Ui_MainWindow(object):
             self.con.hide()
             self.label_15.setText("无请求")
         else:
-            self.label_15.setText(cmd)
+            self.label_15.setText(str(con))
             self.status_label.setText("运行")
             self.con.show()
             self.con_Anim = QPropertyAnimation(self.con, b"geometry")
