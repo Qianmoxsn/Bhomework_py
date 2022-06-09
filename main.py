@@ -21,7 +21,8 @@ if __name__ == '__main__':
     f.truncate()
 
     # 运行
-    funcs.OP_C(data.BUS_CON, data.STA_CON)  # 第一次运行，输出结果
+    # funcs.OP_C(data.BUS_CON, data.STA_CON)  # 第一次运行，输出结果
+    print('--请在此输入指令--\n')
     while True:
         code, instr = funcs.IP_C()
         if code == -2:
