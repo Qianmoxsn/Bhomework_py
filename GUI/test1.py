@@ -500,14 +500,14 @@ class Ui_MainWindow(object):
         else:
             self.label_14.setText(str(int(position/gl_VAR.g_dis+1)))
         #QtCore, QtGui, QtWidgets
-        self.bus_Anim = QtGui.QGraphicsPixmapItem(scaledPixmap)
-        self.bus_Anim.setTransformOriginPoint(25, 27.5)  # 设置中心为旋转
-        self.bus_Anim = QPropertyAnimation(self.bus, b"rotation")
-        self.bus_Anim.setStartValue(QtCore.QRect(180, 1, 47, 30))
-        self.bus_Anim.setEndValue(QtCore.QRect(360, 1, 47, 30))
+        #self.bus_Anim = QtGui.QGraphicsPixmapItem(scaledPixmap)
+        #self.bus_Anim.setTransformOriginPoint(25, 27.5)  # 设置中心为旋转
+        self.bus_Anim = QPropertyAnimation(self.bus, b"geometry")
+        #self.bus_Anim.setStartValue(QtCore.QRect(180, 1, 47, 30))
+        #self.bus_Anim.setEndValue(QtCore.QRect(360, 1, 47, 30))
         #self.bus_Anim.setTransformOriginPoint(260, 260, 40, 40)
         #self.bus_Anim.setRotation(data.theta[position])
-        #self.bus_Anim.setEndValue(QtCore.QRect(data.x[position], data.y[position], 47, 30))
+        self.bus_Anim.setEndValue(QtCore.QRect(data.x[position], data.y[position], 47, 30))
         self.bus_Anim.setEasingCurve(QtCore.QEasingCurve.InOutQuad)
         self.bus_Anim.setDuration(300)
         self.bus_Anim.start()
