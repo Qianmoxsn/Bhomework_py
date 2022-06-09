@@ -507,7 +507,7 @@ class Ui_MainWindow(object):
         #self.bus_Anim.setEndValue(QtCore.QRect(360, 1, 47, 30))
         #self.bus_Anim.setTransformOriginPoint(260, 260, 40, 40)
         #self.bus_Anim.setRotation(data.theta[position])
-        self.bus_Anim.setEndValue(QtCore.QRect(data.x[position], data.y[position], 47, 30))
+        self.bus_Anim.setEndValue(QtCore.QRect(data.x[position]+3.5, data.y[position]+5, 47, 30))
         self.bus_Anim.setEasingCurve(QtCore.QEasingCurve.InOutQuad)
         self.bus_Anim.setDuration(300)
         self.bus_Anim.start()
