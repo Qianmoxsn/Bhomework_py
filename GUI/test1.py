@@ -371,7 +371,7 @@ class Ui_MainWindow(object):
                                "}" % img_path)
         self.con.setObjectName("con")
         self.bus = QtWidgets.QLabel(self.centralwidget)
-        self.bus.setGeometry(QtCore.QRect(60, 260, 60, 40))
+        self.bus.setGeometry(QtCore.QRect(63.5, 265, 47, 30))
         img_path = 'img/试试看3.png'
         self.bus.setStyleSheet("QLabel{\n"
                                "background-image: url(\"%s\");\n"
@@ -393,7 +393,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "公交车调度系统动画演示界面"))
         self.title_label.setText(_translate("MainWindow", "公交车调度系统动画演示界面"))
         self.title_label_2.setText(_translate("MainWindow", "运行时间："))
         self.next_button.setText(_translate("MainWindow", "NEXT"))
