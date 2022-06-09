@@ -264,7 +264,7 @@ class Ui_MainWindow(object):
         self.gridLayout_3.addWidget(self.label_14, 0, 1, 1, 2)
         self.back = QtWidgets.QLabel(self.centralwidget)
         self.back.setGeometry(QtCore.QRect(70, 70, 420, 420))
-        img_path = 'C:/Users/汪镕彬/Desktop/erer/无边圆环.png'
+        img_path = 'img/有边圆环.png'
         self.back.setStyleSheet("QLabel{\n"
                                "background-image: url(\"%s\");\n"
                                "background-position:center;\n"
@@ -273,7 +273,7 @@ class Ui_MainWindow(object):
         self.back.setObjectName("back")
         self.st9 = QtWidgets.QLabel(self.centralwidget)
         self.st9.setGeometry(QtCore.QRect(530, 510, 40, 40))
-        img_path = 'C:/Users/汪镕彬/Desktop/erer/站.png'
+        img_path = 'img/站.png'
         self.st9.setStyleSheet("QLabel{\n"
                                "background-image: url(\"%s\");\n"
                                "background-position:center;\n"
@@ -281,7 +281,7 @@ class Ui_MainWindow(object):
                                "}" % img_path)
         self.st9.setObjectName("st9")
         self.st1 = QtWidgets.QLabel(self.centralwidget)
-        img_path = 'C:/Users/汪镕彬/Desktop/erer/站.png'
+        img_path = 'img/站.png'
         self.st1.setStyleSheet("QLabel{\n"
                              "background-image: url(\"%s\");\n"
                              "background-position:center;\n"
@@ -291,7 +291,7 @@ class Ui_MainWindow(object):
         self.st1.setObjectName("st1")
         self.st10 = QtWidgets.QLabel(self.centralwidget)
         self.st10.setGeometry(QtCore.QRect(580, 510, 40, 40))
-        img_path = 'C:/Users/汪镕彬/Desktop/erer/站.png'
+        img_path = 'img/站.png'
         self.st10.setStyleSheet("QLabel{\n"
                                "background-image: url(\"%s\");\n"
                                "background-position:center;\n"
@@ -300,7 +300,7 @@ class Ui_MainWindow(object):
         self.st10.setObjectName("st10")
         self.st2 = QtWidgets.QLabel(self.centralwidget)
         self.st2.setGeometry(QtCore.QRect(180, 510, 40, 40))
-        img_path = 'C:/Users/汪镕彬/Desktop/erer/站.png'
+        img_path = 'img/站.png'
         self.st2.setStyleSheet("QLabel{\n"
                                "background-image: url(\"%s\");\n"
                                "background-position:center;\n"
@@ -309,7 +309,7 @@ class Ui_MainWindow(object):
         self.st2.setObjectName("st2")
         self.st3 = QtWidgets.QLabel(self.centralwidget)
         self.st3.setGeometry(QtCore.QRect(230, 510, 40, 40))
-        img_path = 'C:/Users/汪镕彬/Desktop/erer/站.png'
+        img_path = 'img/站.png'
         self.st3.setStyleSheet("QLabel{\n"
                                "background-image: url(\"%s\");\n"
                                "background-position:center;\n"
@@ -318,7 +318,7 @@ class Ui_MainWindow(object):
         self.st3.setObjectName("st3")
         self.st4 = QtWidgets.QLabel(self.centralwidget)
         self.st4.setGeometry(QtCore.QRect(280, 510, 40, 40))
-        img_path = 'C:/Users/汪镕彬/Desktop/erer/站.png'
+        img_path = 'img/站.png'
         self.st4.setStyleSheet("QLabel{\n"
                                "background-image: url(\"%s\");\n"
                                "background-position:center;\n"
@@ -327,7 +327,7 @@ class Ui_MainWindow(object):
         self.st4.setObjectName("st4")
         self.st5 = QtWidgets.QLabel(self.centralwidget)
         self.st5.setGeometry(QtCore.QRect(330, 510, 40, 40))
-        img_path = 'C:/Users/汪镕彬/Desktop/erer/站.png'
+        img_path = 'img/站.png'
         self.st5.setStyleSheet("QLabel{\n"
                                "background-image: url(\"%s\");\n"
                                "background-position:center;\n"
@@ -336,7 +336,7 @@ class Ui_MainWindow(object):
         self.st5.setObjectName("st5")
         self.st6 = QtWidgets.QLabel(self.centralwidget)
         self.st6.setGeometry(QtCore.QRect(380, 510, 40, 40))
-        img_path = 'C:/Users/汪镕彬/Desktop/erer/站.png'
+        img_path = 'img/站.png'
         self.st6.setStyleSheet("QLabel{\n"
                                "background-image: url(\"%s\");\n"
                                "background-position:center;\n"
@@ -345,7 +345,7 @@ class Ui_MainWindow(object):
         self.st6.setObjectName("st6")
         self.st7 = QtWidgets.QLabel(self.centralwidget)
         self.st7.setGeometry(QtCore.QRect(430, 510, 40, 40))
-        img_path = 'C:/Users/汪镕彬/Desktop/erer/站.png'
+        img_path = 'img/站.png'
         self.st7.setStyleSheet("QLabel{\n"
                                "background-image: url(\"%s\");\n"
                                "background-position:center;\n"
@@ -354,7 +354,7 @@ class Ui_MainWindow(object):
         self.st7.setObjectName("st7")
         self.st8 = QtWidgets.QLabel(self.centralwidget)
         self.st8.setGeometry(QtCore.QRect(480, 510, 40, 40))
-        img_path = 'C:/Users/汪镕彬/Desktop/erer/站.png'
+        img_path = 'img/站.png'
         self.st8.setStyleSheet("QLabel{\n"
                                "background-image: url(\"%s\");\n"
                                "background-position:center;\n"
@@ -363,7 +363,7 @@ class Ui_MainWindow(object):
         self.st8.setObjectName("st8")
         self.con = QtWidgets.QLabel(self.centralwidget)
         self.con.setGeometry(QtCore.QRect(70, 510, 40, 40))
-        img_path = 'C:/Users/汪镕彬/Desktop/erer/到站.png'
+        img_path = 'img/到站.png'
         self.con.setStyleSheet("QLabel{\n"
                                "background-image: url(\"%s\");\n"
                                "background-position:center;\n"
@@ -372,7 +372,7 @@ class Ui_MainWindow(object):
         self.con.setObjectName("con")
         self.bus = QtWidgets.QLabel(self.centralwidget)
         self.bus.setGeometry(QtCore.QRect(60, 260, 60, 40))
-        img_path = 'C:/Users/汪镕彬/Desktop/erer/试试看3.png'
+        img_path = 'img/试试看3.png'
         self.bus.setStyleSheet("QLabel{\n"
                                "background-image: url(\"%s\");\n"
                                "background-position:center;\n"
