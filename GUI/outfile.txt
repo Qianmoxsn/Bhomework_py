@@ -3,100 +3,107 @@ position:0
 target:-1
 TIME:2
 position:1
-target:(2, 4)
+target:3
 TIME:3
 position:2
-target:(2, 4)
+target:3
 TIME:4
 position:3
-target:(2, 4)
+target:3
 TIME:5
 position:4
-target:(2, 4)
+target:3
 TIME:6
 position:5
-target:(2, 4)
+target:3
 TIME:7
 position:6
-target:(2, 4)
+target:3
 TIME:8
-position:7
-target:(2, 4)
+position:6
+target:5
 TIME:9
-position:8
-target:(2, 4)
+position:7
+target:5
 TIME:10
-position:9
-target:(2, 4)
+position:8
+target:5
 TIME:11
 position:9
-target:(2, 3)
+target:5
 TIME:12
-position:8
-target:(2, 3)
+position:10
+target:5
 TIME:13
-position:7
-target:(2, 3)
+position:11
+target:5
 TIME:14
-position:6
-target:(2, 3)
+position:12
+target:5
 TIME:15
-position:6
-target:(3, 5)
+position:12
+target:2
 TIME:16
-position:7
-target:(3, 5)
+position:11
+target:2
 TIME:17
-position:8
-target:(3, 5)
+position:10
+target:2
 TIME:18
 position:9
-target:(3, 5)
+target:2
 TIME:19
-position:10
-target:(3, 5)
+position:8
+target:2
 TIME:20
-position:11
-target:(3, 5)
+position:7
+target:2
 TIME:21
-position:12
-target:(3, 5)
+position:6
+target:2
 TIME:22
-position:12
-target:(3, 6)
+position:5
+target:2
 TIME:23
-position:13
-target:(3, 6)
+position:4
+target:2
 TIME:24
-position:14
-target:(3, 6)
+position:3
+target:2
 TIME:25
-position:15
-target:(3, 6)
+position:3
+target:1
 TIME:26
-position:15
-target:(1, 5)
+position:2
+target:1
 TIME:27
-position:14
-target:(1, 5)
+position:1
+target:1
 TIME:28
-position:13
-target:(1, 5)
+position:0
+target:1
 TIME:29
-position:12
-target:(1, 5)
+position:0
+target:4
 TIME:30
-position:12
-target:(3, 6)
+position:1
+target:4
 TIME:31
-position:13
-target:(3, 6)
+position:2
+target:4
 TIME:32
-position:14
-target:(3, 6)
+position:3
+target:4
 TIME:33
-position:15
-target:(3, 6)
+position:4
+target:4
 TIME:34
-position:15
-target:-1
+position:5
+target:4
+TIME:35
+position:6
+target:4
+TIME:36
+position:7
+target:4
+end
