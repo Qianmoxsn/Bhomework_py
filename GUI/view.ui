@@ -771,6 +771,44 @@ background-color:rgba(255,0,0,255);/*背景色*/
      <string>bus</string>
     </property>
    </widget>
+   <widget class="QLabel" name="mm1">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>460</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Adobe Devanagari</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>型号：ZTZ-99A</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="mm2">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>460</y>
+      <width>331</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Adobe Devanagari</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>车长：王宇轩    炮手：汪镕彬    驾驶员：何杰聪</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -778,7 +816,7 @@ background-color:rgba(255,0,0,255);/*背景色*/
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
